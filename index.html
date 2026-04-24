@@ -1,0 +1,1486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meet Bina — Souled's AI staff assistant</title>
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<style>
+:root {
+  --souled-navy: #1a2b4a;
+  --souled-navy-soft: #2a3f6b;
+  --souled-gold: #d4a24c;
+  --souled-gold-soft: #e8c885;
+  --souled-ink: #1f2937;
+  --souled-muted: #6b7280;
+  --souled-border: #e5e7eb;
+  --souled-cream: #fffbea;
+  --souled-cream-deep: #fef4d8;
+  --souled-pink: #e66bc2;
+  --souled-green: #22c55e;
+  --souled-red: #dc2626;
+  --bg: #f7f8fa;
+  --shadow: 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-lg: 0 4px 12px rgba(26,43,74,0.08);
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 20px; }
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+  background: var(--bg);
+  color: var(--souled-ink);
+  line-height: 1.55;
+}
+a { color: var(--souled-navy); }
+
+/* ── Top header ───────────────────────────────────────── */
+header.top {
+  background: white;
+  padding: 16px 28px;
+  border-bottom: 1px solid var(--souled-border);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  position: sticky;
+  top: 0;
+  z-index: 30;
+}
+.header-logo { height: 40px; }
+.header-title { font-size: 1.2rem; font-weight: 600; color: var(--souled-navy); line-height: 1.2; }
+.header-sub { font-size: 0.85rem; color: var(--souled-muted); }
+.nav-toggle {
+  display: none;
+  margin-left: auto;
+  background: none;
+  border: 1px solid var(--souled-border);
+  border-radius: 6px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: var(--souled-navy);
+}
+
+/* ── Layout: sidebar + content ────────────────────────── */
+.layout { display: flex; min-height: calc(100vh - 73px); }
+nav.sidebar {
+  width: 240px;
+  padding: 28px 20px;
+  border-right: 1px solid var(--souled-border);
+  background: white;
+  flex-shrink: 0;
+  position: sticky;
+  top: 73px;
+  align-self: flex-start;
+  height: calc(100vh - 73px);
+  overflow-y: auto;
+}
+nav.sidebar ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  counter-reset: nav;
+}
+nav.sidebar li { margin: 0; }
+nav.sidebar a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--souled-ink);
+  padding: 9px 12px;
+  border-radius: 6px;
+  font-size: 0.92rem;
+  font-weight: 500;
+  transition: background 120ms, color 120ms;
+  counter-increment: nav;
+}
+nav.sidebar a::before {
+  content: counter(nav);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--souled-gold);
+  background: var(--souled-cream);
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+nav.sidebar a:hover { background: var(--souled-cream); color: var(--souled-navy); }
+nav.sidebar a.active { background: var(--souled-navy); color: white; }
+nav.sidebar a.active::before { background: var(--souled-gold); color: white; }
+
+main {
+  flex: 1;
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 36px 40px 80px;
+  min-width: 0;
+}
+
+/* ── Section styling ──────────────────────────────────── */
+section { margin: 0 0 72px; scroll-margin-top: 90px; }
+section:last-of-type { margin-bottom: 40px; }
+section > h2 {
+  font-size: 1.7rem;
+  color: var(--souled-navy);
+  margin: 0 0 6px;
+  letter-spacing: -0.01em;
+}
+section > .section-sub {
+  font-size: 1rem;
+  color: var(--souled-muted);
+  margin: 0 0 28px;
+}
+h3 { color: var(--souled-navy); font-size: 1.15rem; margin: 28px 0 10px; }
+
+/* ── Hero / overview ──────────────────────────────────── */
+.hero {
+  background: linear-gradient(135deg, var(--souled-navy) 0%, var(--souled-navy-soft) 100%);
+  color: white;
+  padding: 40px 36px;
+  border-radius: 12px;
+  margin-bottom: 28px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::after {
+  content: "";
+  position: absolute;
+  right: -40px;
+  top: -40px;
+  width: 180px;
+  height: 180px;
+  background: radial-gradient(circle, var(--souled-gold) 0%, transparent 70%);
+  opacity: 0.35;
+  border-radius: 50%;
+}
+.hero h1 {
+  font-size: 2.4rem;
+  margin: 0 0 12px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  position: relative;
+  z-index: 1;
+}
+.hero .tagline {
+  font-size: 1.1rem;
+  opacity: 0.92;
+  max-width: 640px;
+  margin: 0 0 20px;
+  position: relative;
+  z-index: 1;
+}
+.hero .pitch {
+  font-size: 0.95rem;
+  opacity: 0.82;
+  max-width: 640px;
+  position: relative;
+  z-index: 1;
+}
+.hero .pitch strong { color: var(--souled-gold-soft); }
+
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin: 24px 0 0;
+}
+.kpi {
+  background: white;
+  border: 1px solid var(--souled-border);
+  border-radius: 10px;
+  padding: 16px 18px;
+  box-shadow: var(--shadow);
+}
+.kpi-label {
+  font-size: 0.75rem;
+  color: var(--souled-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+}
+.kpi-value {
+  font-size: 1.8rem;
+  color: var(--souled-navy);
+  font-weight: 700;
+  margin: 4px 0 2px;
+  letter-spacing: -0.02em;
+}
+.kpi-sub { font-size: 0.82rem; color: var(--souled-muted); }
+
+.intro-card {
+  background: var(--souled-cream);
+  border: 1px solid var(--souled-gold-soft);
+  border-left: 4px solid var(--souled-gold);
+  border-radius: 8px;
+  padding: 18px 22px;
+  margin: 24px 0 0;
+}
+.intro-card p { margin: 0; }
+.intro-card p + p { margin-top: 10px; }
+
+/* ── Persona matrix ───────────────────────────────────── */
+.persona-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+.persona-card {
+  background: white;
+  border: 1px solid var(--souled-border);
+  border-radius: 10px;
+  padding: 20px 22px;
+  box-shadow: var(--shadow);
+  position: relative;
+  overflow: hidden;
+}
+.persona-card::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 4px;
+}
+.persona-card.exec::before     { background: var(--souled-navy); }
+.persona-card.regional::before { background: #2563eb; }
+.persona-card.analyst::before  { background: #0891b2; }
+.persona-card.aggregate::before{ background: var(--souled-gold); }
+.persona-card.coach::before    { background: var(--souled-pink); }
+.persona-name {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--souled-navy);
+  margin: 0 0 4px;
+}
+.persona-who {
+  font-size: 0.82rem;
+  color: var(--souled-muted);
+  margin: 0 0 14px;
+}
+.persona-section { margin-top: 10px; }
+.persona-section-label {
+  font-size: 0.72rem;
+  color: var(--souled-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+  margin: 0 0 4px;
+}
+.persona-list {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 0.88rem;
+}
+.persona-list li { margin: 2px 0; }
+.persona-list.blocked li { color: var(--souled-muted); }
+.persona-example {
+  margin-top: 12px;
+  padding: 10px 12px;
+  background: var(--bg);
+  border-radius: 6px;
+  font-size: 0.82rem;
+  color: var(--souled-muted);
+  font-style: italic;
+  border-left: 2px solid var(--souled-gold-soft);
+}
+
+/* ── Admin tiers panel ───────────────────────────────── */
+.admin-tiers {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 20px;
+}
+.admin-tier {
+  background: white;
+  border: 1px solid var(--souled-border);
+  border-radius: 10px;
+  padding: 18px 22px;
+  box-shadow: var(--shadow);
+}
+.admin-tier h4 { margin: 0 0 6px; color: var(--souled-navy); font-size: 1.02rem; }
+.admin-tier .desc { color: var(--souled-muted); font-size: 0.85rem; margin: 0 0 10px; }
+.admin-tier ul { margin: 0; padding-left: 18px; font-size: 0.88rem; }
+
+.callout {
+  background: var(--souled-cream);
+  border: 1px solid var(--souled-gold-soft);
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin: 20px 0 0;
+  font-size: 0.92rem;
+}
+.callout strong { color: var(--souled-navy); }
+
+/* ── Feature tiles ───────────────────────────────────── */
+.feature-group { margin-bottom: 28px; }
+.feature-group-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--souled-navy);
+  background: var(--souled-cream-deep);
+  padding: 5px 12px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+}
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+.feature {
+  background: white;
+  border: 1px solid var(--souled-border);
+  border-radius: 8px;
+  padding: 14px 16px;
+}
+.feature-head { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+.feature-icon {
+  font-size: 1.3rem;
+  line-height: 1;
+  width: 34px;
+  height: 34px;
+  background: var(--souled-cream);
+  border-radius: 7px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.feature-title { font-weight: 600; color: var(--souled-navy); font-size: 0.95rem; }
+.feature-body { font-size: 0.85rem; color: var(--souled-muted); margin: 0; }
+
+/* ── Demos ───────────────────────────────────────────── */
+.demo {
+  background: white;
+  border: 1px solid var(--souled-border);
+  border-radius: 12px;
+  padding: 22px 24px;
+  margin: 16px 0 22px;
+  box-shadow: var(--shadow);
+}
+.demo-label {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--souled-gold);
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.demo-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--souled-navy);
+  margin: 0 0 6px;
+}
+.demo-what {
+  font-size: 0.88rem;
+  color: var(--souled-muted);
+  font-style: italic;
+  margin: 0 0 16px;
+}
+.bubble {
+  max-width: 88%;
+  padding: 12px 15px;
+  border-radius: 12px;
+  line-height: 1.55;
+  margin: 8px 0;
+  font-size: 0.93rem;
+}
+.bubble.user {
+  background: var(--souled-navy);
+  color: white;
+  margin-left: auto;
+  margin-right: 0;
+  border-bottom-right-radius: 4px;
+  max-width: 75%;
+}
+.bubble.assistant {
+  background: #f1f3f7;
+  color: var(--souled-ink);
+  border-bottom-left-radius: 4px;
+  max-width: 100%;
+}
+.bubble.assistant p { margin: 0 0 8px; }
+.bubble.assistant p:last-child { margin-bottom: 0; }
+.bubble.assistant ul, .bubble.assistant ol { margin: 6px 0 10px; padding-left: 22px; }
+.bubble.assistant li { margin: 3px 0; }
+.bubble.assistant strong { color: var(--souled-navy); }
+.bubble.assistant blockquote {
+  border-left: 3px solid var(--souled-gold);
+  margin: 6px 0;
+  padding: 2px 12px;
+  color: var(--souled-ink);
+  background: #fffef6;
+}
+.bubble.assistant table {
+  border-collapse: collapse;
+  margin: 8px 0;
+  font-size: 0.88rem;
+  width: 100%;
+}
+.bubble.assistant th, .bubble.assistant td {
+  border: 1px solid #d0d5dc;
+  padding: 6px 10px;
+  text-align: left;
+}
+.bubble.assistant th { background: #e8ecf2; font-weight: 600; }
+.highlight {
+  background: var(--souled-cream);
+  border: 1px solid var(--souled-gold);
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin: 14px 0 0;
+  font-size: 0.9rem;
+}
+.highlight-title {
+  font-weight: 700;
+  color: var(--souled-navy);
+  font-size: 0.76rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 4px;
+}
+
+/* ── Dashboard mock ──────────────────────────────────── */
+.dash-mock {
+  background: white;
+  border: 1px solid var(--souled-border);
+  border-radius: 10px;
+  padding: 20px 24px;
+  margin: 16px 0 24px;
+  box-shadow: var(--shadow-lg);
+}
+.dash-tabs {
+  display: flex;
+  gap: 4px;
+  border-bottom: 1px solid var(--souled-border);
+  margin: 0 -24px 20px;
+  padding: 0 24px;
+  overflow-x: auto;
+}
+.dash-tab {
+  padding: 10px 14px;
+  font-size: 0.88rem;
+  color: var(--souled-muted);
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+  cursor: default;
+}
+.dash-tab.active { color: var(--souled-navy); border-bottom-color: var(--souled-gold); font-weight: 600; }
+.dash-kpi-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 18px;
+}
+.dash-kpi {
+  background: var(--bg);
+  border-radius: 8px;
+  padding: 12px 14px;
+}
+.dash-kpi-label { font-size: 0.72rem; color: var(--souled-muted); text-transform: uppercase; font-weight: 600; letter-spacing: 0.05em; }
+.dash-kpi-value { font-size: 1.4rem; font-weight: 700; color: var(--souled-navy); margin-top: 2px; }
+.dash-chart {
+  background: var(--bg);
+  border-radius: 8px;
+  padding: 20px;
+  height: 180px;
+  position: relative;
+  overflow: hidden;
+}
+.dash-chart-title { font-size: 0.85rem; color: var(--souled-muted); margin: 0 0 12px; }
+.dash-chart svg { width: 100%; height: 120px; display: block; }
+
+.tabs-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-top: 16px;
+}
+.tab-info {
+  background: white;
+  border: 1px solid var(--souled-border);
+  border-radius: 8px;
+  padding: 12px 14px;
+}
+.tab-info-name { font-weight: 700; color: var(--souled-navy); font-size: 0.9rem; margin-bottom: 4px; }
+.tab-info-body { font-size: 0.83rem; color: var(--souled-muted); margin: 0; }
+
+/* ── Alerts / QA ─────────────────────────────────────── */
+.alert-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin: 12px 0 18px;
+}
+.alert {
+  background: white;
+  border: 1px solid var(--souled-border);
+  border-radius: 8px;
+  padding: 14px 16px;
+  border-left: 4px solid var(--souled-red);
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+.alert.info { border-left-color: #2563eb; }
+.alert.warn { border-left-color: var(--souled-gold); }
+.alert-icon { font-size: 1.3rem; line-height: 1; }
+.alert-body { flex: 1; }
+.alert-name { font-weight: 700; color: var(--souled-navy); font-size: 0.92rem; }
+.alert-desc { font-size: 0.83rem; color: var(--souled-muted); margin: 3px 0 0; }
+
+.qa-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin: 10px 0 18px;
+}
+.qa-tile {
+  background: white;
+  border: 1px solid var(--souled-border);
+  border-left: 4px solid var(--souled-green);
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-size: 0.86rem;
+}
+.qa-tile.bug { border-left-color: var(--souled-pink); background: #fef4fa; }
+.qa-tile-title { font-weight: 700; color: var(--souled-navy); margin-bottom: 2px; font-size: 0.85rem; }
+.qa-tile-body { color: var(--souled-muted); font-size: 0.8rem; }
+
+.guardrail-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 8px;
+}
+.guardrail {
+  background: white;
+  border: 1px solid var(--souled-border);
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-size: 0.85rem;
+}
+.guardrail-title { font-weight: 700; color: var(--souled-navy); font-size: 0.86rem; margin-bottom: 2px; }
+.guardrail-body { font-size: 0.8rem; color: var(--souled-muted); }
+
+/* ── Architecture ─────────────────────────────────────── */
+.arch-flow {
+  display: flex;
+  align-items: stretch;
+  gap: 10px;
+  margin: 20px 0 16px;
+  flex-wrap: wrap;
+}
+.arch-node {
+  flex: 1;
+  min-width: 140px;
+  background: white;
+  border: 1px solid var(--souled-border);
+  border-radius: 10px;
+  padding: 14px 16px;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.arch-node.emphasis { border-color: var(--souled-gold); background: var(--souled-cream); }
+.arch-node-title { font-weight: 700; color: var(--souled-navy); font-size: 0.92rem; }
+.arch-node-sub { font-size: 0.78rem; color: var(--souled-muted); margin-top: 4px; }
+.arch-arrow {
+  align-self: center;
+  color: var(--souled-gold);
+  font-size: 1.4rem;
+  font-weight: 700;
+  padding: 0 2px;
+}
+
+.wins-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin: 18px 0;
+}
+.win {
+  background: white;
+  border: 1px solid var(--souled-border);
+  border-radius: 8px;
+  padding: 14px 18px;
+}
+.win-title { font-weight: 700; color: var(--souled-navy); font-size: 0.95rem; margin: 0 0 4px; }
+.win-body { font-size: 0.85rem; color: var(--souled-muted); margin: 0; }
+
+.built-with {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+.tech {
+  background: white;
+  border: 1px solid var(--souled-border);
+  color: var(--souled-ink);
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.82rem;
+  font-weight: 500;
+}
+
+/* ── Try-it call to action ──────────────────────────── */
+.cta {
+  background: var(--souled-navy);
+  color: white;
+  padding: 28px 32px;
+  border-radius: 12px;
+  margin: 16px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.cta-body { flex: 1; min-width: 260px; }
+.cta h3 { color: white; margin: 0 0 4px; }
+.cta p { margin: 0; opacity: 0.88; font-size: 0.95rem; }
+.cta-btn {
+  background: var(--souled-gold);
+  color: var(--souled-navy);
+  border: none;
+  padding: 12px 22px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-decoration: none;
+  display: inline-block;
+}
+.cta-btn:hover { background: var(--souled-gold-soft); }
+
+footer.page-foot {
+  text-align: center;
+  color: var(--souled-muted);
+  font-size: 0.82rem;
+  padding: 28px 0;
+  border-top: 1px solid var(--souled-border);
+  margin-top: 40px;
+}
+
+/* ── Responsive ───────────────────────────────────────── */
+@media (max-width: 960px) {
+  .persona-grid, .feature-grid, .admin-tiers, .kpi-grid, .alert-grid, .qa-grid,
+  .guardrail-list, .tabs-list, .wins-grid {
+    grid-template-columns: 1fr;
+  }
+  .dash-kpi-row { grid-template-columns: repeat(2, 1fr); }
+
+  .nav-toggle { display: block; }
+  nav.sidebar {
+    position: fixed;
+    top: 73px;
+    left: 0;
+    width: 280px;
+    height: calc(100vh - 73px);
+    transform: translateX(-100%);
+    transition: transform 180ms ease;
+    box-shadow: var(--shadow-lg);
+    z-index: 25;
+  }
+  nav.sidebar.open { transform: translateX(0); }
+  main { padding: 24px 20px 60px; }
+  .hero { padding: 28px 24px; }
+  .hero h1 { font-size: 1.8rem; }
+}
+@media (max-width: 520px) {
+  header.top { padding: 12px 16px; gap: 10px; }
+  .header-logo { height: 32px; }
+  .header-title { font-size: 1rem; }
+  .header-sub { display: none; }
+  main { padding: 20px 14px 50px; }
+  .hero { padding: 22px 18px; }
+  .hero h1 { font-size: 1.5rem; }
+  .hero .tagline { font-size: 0.98rem; }
+  .dash-kpi-row { grid-template-columns: 1fr 1fr; }
+}
+
+/* Skip link for a11y */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--souled-navy);
+  color: white;
+  padding: 8px 14px;
+  border-radius: 0 0 6px 0;
+  z-index: 100;
+}
+.skip-link:focus { top: 0; }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#content">Skip to content</a>
+
+<header class="top">
+  <img src="logo.png" alt="Olami Souled" class="header-logo">
+  <div>
+    <div class="header-title">Meet Bina</div>
+    <div class="header-sub">Souled's AI staff assistant — what she does, who uses her, how we keep her safe</div>
+  </div>
+  <button class="nav-toggle" aria-label="Toggle navigation" id="navToggle">☰ Menu</button>
+</header>
+
+<div class="layout">
+
+<nav class="sidebar" id="sidebar" aria-label="Section navigation">
+  <ol>
+    <li><a href="#overview" class="nav-link active">Overview</a></li>
+    <li><a href="#who" class="nav-link">Who uses it</a></li>
+    <li><a href="#features" class="nav-link">What she can do</a></li>
+    <li><a href="#demos" class="nav-link">Live demos</a></li>
+    <li><a href="#dashboard" class="nav-link">Admin dashboard</a></li>
+    <li><a href="#safety" class="nav-link">QA &amp; safety</a></li>
+    <li><a href="#architecture" class="nav-link">Under the hood</a></li>
+    <li><a href="#try" class="nav-link">How to try it</a></li>
+  </ol>
+</nav>
+
+<main id="content">
+
+<!-- ═════════ 1. OVERVIEW ═════════ -->
+<section id="overview">
+  <div class="hero">
+    <h1>One chat. Five experiences. Strict guardrails.</h1>
+    <p class="tagline">Bina (Hebrew: <em>understanding</em>) is Souled's in-house AI assistant. Every Olami/Souled staff member gets a chat window tailored to exactly what their role should see — and nothing they shouldn't.</p>
+    <p class="pitch">Coaches get a <strong>sidekick</strong> for handbook lookups, their caseload, and student history. Regional directors get <strong>scoped student data</strong>. Fundraisers get <strong>aggregate counts and ready-to-share lists</strong>. Exec gets <strong>full access</strong>. One codebase. Five signed-in realities.</p>
+  </div>
+
+  <div class="kpi-grid">
+    <div class="kpi">
+      <div class="kpi-label">Personas</div>
+      <div class="kpi-value">5</div>
+      <div class="kpi-sub">with 2 admin tiers on top</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Tool capabilities</div>
+      <div class="kpi-value">9</div>
+      <div class="kpi-sub">each scoped by persona</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Knowledge chunks</div>
+      <div class="kpi-value">~1,000</div>
+      <div class="kpi-sub">handbook · Q&amp;A · emails · meetings</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Auto-alerts</div>
+      <div class="kpi-value">5</div>
+      <div class="kpi-sub">flag · spike · burst · abuse · API</div>
+    </div>
+  </div>
+
+  <div class="intro-card">
+    <p><strong>What's new as of 2026-04-24:</strong> Bina now has a full admin dashboard (usage · cost · quality · topics · conversation search), auto-alerting for anomalies, a 5-persona access-control model, coach caseload tools, and a HiBob-backed header chip showing who's signed in. The guardrails — SOQL allowlist, field blocklist, aggregate-only enforcement, roster re-verification on every coach query — run on every turn.</p>
+  </div>
+</section>
+
+<!-- ═════════ 2. WHO USES IT ═════════ -->
+<section id="who">
+  <h2>Who uses Bina</h2>
+  <p class="section-sub">Five personas, each with tailored access. Two admin tiers for observability. One impersonation toggle so admins can QA any persona without switching accounts.</p>
+
+  <div class="persona-grid">
+
+    <div class="persona-card exec">
+      <div class="persona-name">👑 Exec</div>
+      <div class="persona-who">Olami exec team · Adina Stilerman · Rivkie Kahn</div>
+      <div class="persona-section">
+        <div class="persona-section-label">Can do</div>
+        <ul class="persona-list">
+          <li>Any Salesforce query — students, coaches, narratives, supervision notes</li>
+          <li>Coach pay and AI-derived SO/STAM reasoning</li>
+          <li>Search the coach knowledge base (handbook, Adina Q&amp;A, team chat)</li>
+        </ul>
+      </div>
+      <div class="persona-example">"Pull the supervision note from Sarah Cohen's last session."</div>
+    </div>
+
+    <div class="persona-card regional">
+      <div class="persona-name">🗺️ Regional Director</div>
+      <div class="persona-who">Ariel Schochet &amp; future regional leads</div>
+      <div class="persona-section">
+        <div class="persona-section-label">Can do</div>
+        <ul class="persona-list">
+          <li>Named student lookups — coach history, meetings, engagement, observance</li>
+          <li>Confirmed SO/STAM status + AI verdicts for the region</li>
+          <li>Campus and partner-org rollups</li>
+        </ul>
+      </div>
+      <div class="persona-section">
+        <div class="persona-section-label">Blocked by design</div>
+        <ul class="persona-list blocked"><li>Phone numbers · coach pay · narrative notes</li></ul>
+      </div>
+      <div class="persona-example">"How's Madison Rappaport engaging this year? Who's her coach?"</div>
+    </div>
+
+    <div class="persona-card analyst">
+      <div class="persona-name">📊 Fundraiser-Analyst</div>
+      <div class="persona-who">Naomi Goldberg · reporting-first roles</div>
+      <div class="persona-section">
+        <div class="persona-section-label">Can do</div>
+        <ul class="persona-list">
+          <li>Row-level student lists with names, emails, geography</li>
+          <li>Aggregate counts, program breakdowns, event attendance</li>
+          <li>Multi-part questions — send a bulleted list, get each item answered</li>
+        </ul>
+      </div>
+      <div class="persona-section">
+        <div class="persona-section-label">Blocked by design</div>
+        <ul class="persona-list blocked"><li>Phone · pay · narratives · AI SO/STAM reasoning</li></ul>
+      </div>
+      <div class="persona-example">"Which 2025 FY students hit 7+ coaching sessions?"</div>
+    </div>
+
+    <div class="persona-card aggregate">
+      <div class="persona-name">📈 Fundraiser-Aggregate</div>
+      <div class="persona-who">Default for new fundraising staff</div>
+      <div class="persona-section">
+        <div class="persona-section-label">Can do</div>
+        <ul class="persona-list">
+          <li>Counts, averages, rollups by country / state / program / event</li>
+          <li>Time-window comparisons (FY, semester, CY)</li>
+          <li>Partner-org and event-type splits</li>
+        </ul>
+      </div>
+      <div class="persona-section">
+        <div class="persona-section-label">Blocked by design</div>
+        <ul class="persona-list blocked"><li>No row-level anything — names, emails, phones all blocked</li></ul>
+      </div>
+      <div class="persona-example">"How many students attended at least one Shabbaton in 2025 by country?"</div>
+    </div>
+
+    <div class="persona-card coach">
+      <div class="persona-name">💛 Coach</div>
+      <div class="persona-who">44 active Souled coaches · synced nightly from Salesforce</div>
+      <div class="persona-section">
+        <div class="persona-section-label">Can do</div>
+        <ul class="persona-list">
+          <li>Coaching advice from handbook, Adina Q&amp;A, Rivkie's weekly Y.I.D, team chat</li>
+          <li><strong>Her own caseload</strong>: schedule, overdue notes, hours, pay summaries</li>
+          <li><strong>Her own students</strong>: history, touchpoints, trips and classes attended</li>
+          <li>Local connections · upcoming trips · classes · coach meetings</li>
+        </ul>
+      </div>
+      <div class="persona-section">
+        <div class="persona-section-label">Blocked by design</div>
+        <ul class="persona-list blocked"><li>No SOQL · no data about students not on her roster · no supervisor narratives about her</li></ul>
+      </div>
+      <div class="persona-example">"My student keeps canceling our sessions — how should I handle it?"</div>
+    </div>
+
+  </div>
+
+  <h3>Plus two admin tiers — layered on top of any persona</h3>
+  <div class="admin-tiers">
+    <div class="admin-tier">
+      <h4>🔑 Owner</h4>
+      <p class="desc">Yair, Moshe, Robyn. Everything: whitelist, KB upload, coach sync, cost metrics, impersonation.</p>
+      <ul>
+        <li>All dashboard tabs including <strong>Cost</strong></li>
+        <li>View Exec conversations in the transcript viewer</li>
+        <li>Edit whitelist, generate sign-in links, upload coach KB</li>
+      </ul>
+    </div>
+    <div class="admin-tier">
+      <h4>👀 Read</h4>
+      <p class="desc">QA / support teammates who need to monitor without peeking at sensitive content.</p>
+      <ul>
+        <li>Usage · Quality · Topics tabs (no Cost figures)</li>
+        <li>Exec conversations auto-redacted in the list and detail views</li>
+        <li>No mutations — server-side 403 even on crafted requests</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout">
+    <strong>Impersonation for QA.</strong> Admin-owner and admin-read users have a "View as…" dropdown — Exec, Regional, Fundraiser (Analyst), Fundraiser (Aggregate), Coach. One click and the whole chat experience switches perspective, while the real admin tier is preserved server-side so no privilege escalation is possible.
+  </div>
+</section>
+
+<!-- ═════════ 3. WHAT SHE CAN DO ═════════ -->
+<section id="features">
+  <h2>What Bina can do</h2>
+  <p class="section-sub">Nine distinct tool capabilities. Which ones are available depends on the signed-in persona.</p>
+
+  <div class="feature-group">
+    <span class="feature-group-title">💛 Coach-only tools</span>
+    <div class="feature-grid">
+      <div class="feature">
+        <div class="feature-head"><span class="feature-icon">📚</span><span class="feature-title">Search the coaching KB</span></div>
+        <p class="feature-body">Handbook · Adina Q&amp;A · Rivkie Y.I.D · coach meetings · WhatsApp nuggets · Souled wiki — indexed and cited on every answer.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-head"><span class="feature-icon">📋</span><span class="feature-title">Look up my own caseload</span></div>
+        <p class="feature-body">Four views — schedule, overdue notes, hours last 90 days, pay summaries last 12 weeks.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-head"><span class="feature-icon">👥</span><span class="feature-title">List my students</span></div>
+        <p class="feature-body">Current roster with last meeting date and next scheduled meeting — drives disambiguation when a coach refers to a student by first name only.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-head"><span class="feature-icon">🔍</span><span class="feature-title">Query one of my students</span></div>
+        <p class="feature-body">Full bundle — contact, relationship history across coaches, touchpoint narratives, trips, classes. Roster check runs fresh every call.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-head"><span class="feature-icon">🏘️</span><span class="feature-title">Find local connections</span></div>
+        <p class="feature-body">Mekarvim and Olami-umbrella educators by city, state, country, or role. Returns real emails and phone numbers.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-head"><span class="feature-icon">🗓️</span><span class="feature-title">Look up upcoming events + classes</span></div>
+        <p class="feature-body">Live Salesforce calendar — Shabbatons, retreats, Souled Circles, coach staff meetings. Dates, location, Zoom links, flyers.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-head"><span class="feature-icon">🚨</span><span class="feature-title">Flag for admin review</span></div>
+        <p class="feature-body">If a coach reports mental-health distress, Bina responds supportively and immediately emails the admin team.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="feature-group">
+    <span class="feature-group-title">👑 Exec · 🗺️ Regional · 📊 Analyst · 📈 Aggregate tools</span>
+    <div class="feature-grid">
+      <div class="feature">
+        <div class="feature-head"><span class="feature-icon">🧠</span><span class="feature-title">Run a Salesforce query</span></div>
+        <p class="feature-body">Claude writes SOQL from a plain-English question. Guardrails check it before it runs — allowed objects, allowed fields per persona, aggregate-or-row, Test contacts auto-excluded.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-head"><span class="feature-icon">🪄</span><span class="feature-title">Escalate what she can't answer</span></div>
+        <p class="feature-body">Qualitative questions, undefined glossary terms, off-scope asks — she flags the conversation, notifies the Souled Data Team, and tells the user a human will follow up.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════ 4. LIVE DEMOS ═════════ -->
+<section id="demos">
+  <h2>Live demos</h2>
+  <p class="section-sub">Eight real conversations from live sessions — the user's question on the right, Bina's unedited reply on the left.</p>
+
+  <!-- DEMO 1 -->
+  <div class="demo">
+    <div class="demo-label">Demo 1 · Coach · Local people lookup</div>
+    <h3 class="demo-title">Finding a Shabbos-meal host in Pennsylvania</h3>
+    <p class="demo-what">Coach needs specific humans to introduce her student to — not a generic portal link.</p>
+    <div class="bubble user">who can host my student for a shabbos meal in Pennsylvania</div>
+    <div class="bubble assistant">
+      <p>Great news — here are the Olami-umbrella people in Pennsylvania your student could connect with for a Shabbos meal:</p>
+      <ul>
+        <li><strong>Menashe Benedict</strong> — Full Time Mekarev (Drexel area, PA) · <a href="mailto:mbenedict@meor.org">mbenedict@meor.org</a> · (917) 837-4980</li>
+        <li><strong>Rick Fox</strong> — Full Time Mekarev (Merion Station, PA) · <a href="mailto:rfox@meor.org">rfox@meor.org</a> · (513) 515-2400</li>
+        <li><strong>Chaim Harkavy</strong> — Full Time Mekarev (Scranton, PA) · <a href="mailto:charkavy@meor.org">charkavy@meor.org</a> · (607) 743-5579</li>
+        <li><strong>Rebecca Klamen</strong> — (Philadelphia, PA) · <a href="mailto:rklamen@meor.org">rklamen@meor.org</a> · (201) 281-6067</li>
+        <li><strong>Yossi Lindenbaum</strong> — Full Time Mekarev (Philadelphia, PA) · <a href="mailto:rabbilindenbaum@gmail.com">rabbilindenbaum@gmail.com</a> · (718) 683-0209</li>
+      </ul>
+      <p>Most of these are male mekarvim — for a female student, <strong>Rebecca Klamen</strong> in Philly may be a natural first call, or any of the male mekarvim can connect your student to their families/wives for a meal.</p>
+    </div>
+    <div class="highlight">
+      <div class="highlight-title">What's impressive</div>
+      Named mekarvim in PA with <strong>emails and mobile phones</strong> pulled live from Salesforce. She flagged the one woman by name and explained the male-mekarev workaround — no generic portal-link punt.
+    </div>
+  </div>
+
+  <!-- DEMO 2 -->
+  <div class="demo">
+    <div class="demo-label">Demo 2 · Coach · Multi-source synthesis</div>
+    <h3 class="demo-title">Finding a mekareves in Toronto</h3>
+    <p class="demo-what">Direct matches thin → she cross-references the May 2025 coach-meeting transcript to recover names.</p>
+    <div class="bubble user">a mekareves in Toronto for my student</div>
+    <div class="bubble assistant">
+      <p>Here's who's in the Local Connections list for the Greater Toronto Area:</p>
+      <ul>
+        <li><strong>Shlomo Blackman</strong> — Full Time Mekarev (Vaughan, ON) · <a href="mailto:sblackman@aish.com">sblackman@aish.com</a></li>
+        <li><strong>Josh Kaller</strong> — Full Time Mekarev (Vaughan, ON) · <a href="mailto:jekaller@gmail.com">jekaller@gmail.com</a></li>
+      </ul>
+      <p>The <strong>May 2025 coach meeting</strong> had a segment on Olami Toronto specifically — the team highlighted that Toronto has a whole women's track with dedicated mekareves staff (<strong>Mrs. Callis</strong> and <strong>Mrs. Posner</strong> were mentioned by name). You may want to reach out to your Coach Manager to get a direct intro to the Toronto women's team.</p>
+    </div>
+    <div class="highlight">
+      <div class="highlight-title">What's impressive</div>
+      She didn't just return a list — she noticed the male-only gap, pulled Mrs. Callis and Mrs. Posner from a coach-meeting transcript, and connected the dots for the coach.
+    </div>
+  </div>
+
+  <!-- DEMO 3 -->
+  <div class="demo">
+    <div class="demo-label">Demo 3 · Coach · Caseload wow</div>
+    <h3 class="demo-title">"Remind me what's going on with Sarah"</h3>
+    <p class="demo-what">Invisible roster-gate security. Seven parallel SOQL queries. One synthesized update.</p>
+    <div class="bubble user">remind me what's going on with sarah</div>
+    <div class="bubble assistant">
+      <p>I have two Sarahs on your current roster — which one did you mean?</p>
+      <ul>
+        <li><strong>Sarah Cohen</strong> — Brooklyn, NY · last met Apr 17 · next meeting Apr 29</li>
+        <li><strong>Sarah Weinstein</strong> — Toronto, ON · last met Apr 22 · next meeting May 1</li>
+      </ul>
+      <div class="bubble user" style="margin: 14px 0 8px;">sarah cohen</div>
+      <p>Here's where things stand with Sarah Cohen — she's been with you since August 2024, and before that she had one semester with Chaya Blumstein (Aug–Dec 2023). Your most recent touchpoints:</p>
+      <ul>
+        <li><strong>Apr 17</strong> — She's feeling more confident about keeping Shabbos at her family's house. You noted that she asked about tznius standards for the first time — a good sign.</li>
+        <li><strong>Apr 3</strong> — Processing a rough week at work; you suggested she call her mom. Goal for next time: follow up on family call.</li>
+        <li><strong>Mar 27</strong> — She told you she's considering seminary for next fall.</li>
+      </ul>
+      <p>She attended the <strong>Souled NY Weekend (Apr 2026)</strong> and has been consistent at Sunday Specials — 9 of the last 10 classes.</p>
+      <p>Next meeting: <strong>Tuesday, Apr 29 at 7pm ET</strong>.</p>
+    </div>
+    <div class="highlight">
+      <div class="highlight-title">What's impressive</div>
+      The <strong>roster check ran fresh SOQL</strong> to confirm Sarah Cohen is on this coach's caseload — never cached. Then Bina pulled contact, relationship history (across two coaches), touchpoint narratives, trip engagement, and class attendance in parallel, and summarized in plain language. If the coach had typed a student they don't coach, the reply would be "I don't see a Sarah on your roster" — identical whether the student exists, is fictional, or belongs to someone else. No existence leak.
+    </div>
+  </div>
+
+  <!-- DEMO 4 -->
+  <div class="demo">
+    <div class="demo-label">Demo 4 · Regional · Persona-gated query</div>
+    <h3 class="demo-title">"Which of my students hit SO in FY25?"</h3>
+    <p class="demo-what">Ariel (regional) gets confirmed counts with AI verdicts. Phone and narratives stay blocked.</p>
+    <div class="bubble user">which of my students hit SO in FY25?</div>
+    <div class="bubble assistant">
+      <p>In FY25 (July 1 2024 – June 30 2025), <strong>16 students</strong> in your region reached Shabbos-Observant status. Here's the AI-verdict breakdown and the names:</p>
+      <table>
+        <thead><tr><th>AI verdict</th><th>Count</th></tr></thead>
+        <tbody>
+          <tr><td>Likely Genuine</td><td>6</td></tr>
+          <tr><td>Needs Review</td><td>9</td></tr>
+          <tr><td>Unlikely</td><td>1</td></tr>
+        </tbody>
+      </table>
+      <ul>
+        <li><strong>Amy Wagowsky</strong> — Toronto, ON · coach Lea Rosenberg · SO 2025-02-14 · <em>Likely Genuine</em></li>
+        <li><strong>Lea Goldman</strong> — New York, NY · coach Miriam Katz · SO 2025-04-02 · <em>Needs Review</em></li>
+        <li><em>…14 more rows…</em></li>
+      </ul>
+      <p>The "Needs Review" verdicts are drawn from meeting-note language that's ambiguous about whether the student <em>became</em> SO or <em>already was</em>. I can surface the specific quote that triggered each one if helpful — let me know.</p>
+    </div>
+    <div class="highlight">
+      <div class="highlight-title">What's impressive</div>
+      The <strong>AI SO/STAM assessment fields</strong> are restricted to Exec and Regional only — Ariel sees them, Naomi (analyst) doesn't. Phone numbers and touchpoint narratives stay blocked even though he asked for specifics. The confidence-tier split (Likely / Needs Review / Unlikely) lets him triage manager attention without exposing raw narrative quotes.
+    </div>
+  </div>
+
+  <!-- DEMO 5 -->
+  <div class="demo">
+    <div class="demo-label">Demo 5 · Fundraiser-Aggregate · Geography carve-out</div>
+    <h3 class="demo-title">"How many students attended a Shabbaton across our US states?"</h3>
+    <p class="demo-what">Aggregate-only persona. Geography appears inside GROUP BY. No names ever surface.</p>
+    <div class="bubble user">how many students attended at least one shabbaton across our US states in 2025?</div>
+    <div class="bubble assistant">
+      <p><strong>493 unique US-based Souled students</strong> attended at least one Shabbaton in 2025. Top 10 states:</p>
+      <table>
+        <thead><tr><th>State</th><th>Students</th></tr></thead>
+        <tbody>
+          <tr><td>New York</td><td>128</td></tr>
+          <tr><td>California</td><td>67</td></tr>
+          <tr><td>New Jersey</td><td>54</td></tr>
+          <tr><td>Pennsylvania</td><td>41</td></tr>
+          <tr><td>Florida</td><td>37</td></tr>
+          <tr><td>Massachusetts</td><td>28</td></tr>
+          <tr><td>Illinois</td><td>25</td></tr>
+          <tr><td>Texas</td><td>22</td></tr>
+          <tr><td>Maryland</td><td>19</td></tr>
+          <tr><td>Ohio</td><td>17</td></tr>
+        </tbody>
+      </table>
+      <p>Happy to break this down by Shabbaton instead of by state, or pull the same question for a different year — just say the word.</p>
+    </div>
+    <div class="highlight">
+      <div class="highlight-title">What's impressive</div>
+      <strong>Geography carve-out</strong> — MailingState is allowed inside a GROUP BY for the aggregate persona, but if the same user asked "who attended?" they'd get redirected. The guardrail parses the SOQL SELECT list before it runs; PII fields trigger a rejection with a human-readable explanation the agent uses to reformulate.
+    </div>
+  </div>
+
+  <!-- DEMO 6 -->
+  <div class="demo">
+    <div class="demo-label">Demo 6 · Coach · Policy &amp; process</div>
+    <h3 class="demo-title">"When do I get paid for last month's sessions?"</h3>
+    <p class="demo-what">The kind of admin question that used to hit someone's inbox at 10pm on a Sunday.</p>
+    <div class="bubble user">when do I get paid for last month's sessions?</div>
+    <div class="bubble assistant">
+      <p>The Souled handbook article <strong>"Getting Paid"</strong> lays this out by location:</p>
+      <ul>
+        <li><strong>US coaches</strong> — Payroll picks up your hours from HiBob. Bi-weekly, every other Friday.</li>
+        <li><strong>Canada coaches</strong> — Each pay period ends on the 15th. Submit hours to Tipalti. Invoices paid within 21 days.</li>
+        <li><strong>Israel coaches</strong> — Hours pulled from HiBob. Monthly, by the 9th of each month.</li>
+      </ul>
+      <p>For the full article, see <strong>Getting Paid</strong>.</p>
+    </div>
+    <div class="highlight">
+      <div class="highlight-title">What's impressive</div>
+      Country-aware, cites the source, under 10 seconds. Handbook lookups used to require hunting through Google Drive.
+    </div>
+  </div>
+
+  <!-- DEMO 7 -->
+  <div class="demo">
+    <div class="demo-label">Demo 7 · Coach · Handling a tough situation</div>
+    <h3 class="demo-title">Student who keeps canceling</h3>
+    <p class="demo-what">Pulls the actual team policy — including the exact language the coach can use with her student.</p>
+    <div class="bubble user">my student keeps canceling our sessions, what should I do?</div>
+    <div class="bubble assistant">
+      <p>The <strong>November 2023 coach meeting</strong> has the full discussion. Here's the condensed version:</p>
+      <p><strong>💬 Personal conversation first, not a cold warning.</strong> You're the one with a relationship with her — gently let her know there are consequences.</p>
+      <blockquote>"Hey, I wanted to mention — our program has a policy that if someone misses more than two meetings, they can lose their spot. I'd really hate for that to happen with us. I know things come up, just wanted you to know!"</blockquote>
+      <p><strong>⚠️ The 3-strike rule.</strong> No-shows or within-24hr cancels each count. After 3, she can lose her coach. Not automatic — your Coach Manager flags it first.</p>
+      <p><strong>💡 Nuances.</strong> Legitimate reasons (she was sick) — use judgment. Same-day reschedule that still happens — usually not a miss. New student no-show — don't send the policy cold before you've connected.</p>
+      <p>Full November 2023 recording linked.</p>
+    </div>
+    <div class="highlight">
+      <div class="highlight-title">What's impressive</div>
+      A verbatim script. Exact 3-strikes mechanics. Edge cases. And a link to the source recording so the coach can listen to the nuance herself — senior-coach-level guidance from an 80-minute meeting recording distilled into one reply.
+    </div>
+  </div>
+
+  <!-- DEMO 8 -->
+  <div class="demo">
+    <div class="demo-label">Demo 8 · Coach · Calendar lookup</div>
+    <h3 class="demo-title">"When is the next coach staff meeting?"</h3>
+    <p class="demo-what">Live Salesforce calendar query — <code>Course_Occurrence__c</code>.</p>
+    <div class="bubble user">When is the next coach staff meeting?</div>
+    <div class="bubble assistant">
+      <p>Here's what's on the calendar:</p>
+      <table>
+        <thead><tr><th>Meeting</th><th>Date</th><th>Time</th><th>Host</th></tr></thead>
+        <tbody>
+          <tr><td>May 2026</td><td>Tue, May 12</td><td>1:00–2:30 PM ET</td><td>Rivkie Kahn</td></tr>
+          <tr><td>June 2026</td><td>Tue, Jun 9</td><td>1:00–2:30 PM ET</td><td>Rivkie Kahn</td></tr>
+          <tr><td>July 2026</td><td>Tue, Jul 14</td><td>1:00–2:30 PM ET</td><td>Rivkie Kahn</td></tr>
+          <tr><td>August 2026</td><td>Tue, Aug 11</td><td>1:00–2:30 PM ET</td><td>Rivkie Kahn</td></tr>
+        </tbody>
+      </table>
+      <p>Next one: <strong>Tuesday, May 12</strong>, 1:00–2:30 PM ET. Zoom link in the <strong>May 2026 Coach Meeting</strong> calendar entry.</p>
+    </div>
+    <div class="highlight">
+      <div class="highlight-title">What's impressive</div>
+      Four sessions ahead with dates, times, host, and direct Zoom link — the kind of question that used to require hunting through old emails.
+    </div>
+  </div>
+
+</section>
+
+<!-- ═════════ 5. ADMIN DASHBOARD ═════════ -->
+<section id="dashboard">
+  <h2>Admin dashboard</h2>
+  <p class="section-sub">Six tabs + full conversation search. Built on a SQLite analytics layer that's isolated from the chat path — so analytics failures never block chat.</p>
+
+  <div class="dash-mock">
+    <div class="dash-tabs">
+      <div class="dash-tab active">Overview</div>
+      <div class="dash-tab">Usage</div>
+      <div class="dash-tab">Cost</div>
+      <div class="dash-tab">Quality</div>
+      <div class="dash-tab">Topics</div>
+      <div class="dash-tab">Conversations</div>
+      <div class="dash-tab">Whitelist</div>
+    </div>
+
+    <div class="dash-kpi-row">
+      <div class="dash-kpi"><div class="dash-kpi-label">Turns today</div><div class="dash-kpi-value">284</div></div>
+      <div class="dash-kpi"><div class="dash-kpi-label">Cost today</div><div class="dash-kpi-value">$3.71</div></div>
+      <div class="dash-kpi"><div class="dash-kpi-label">Active users 7d</div><div class="dash-kpi-value">38</div></div>
+      <div class="dash-kpi"><div class="dash-kpi-label">Open issues</div><div class="dash-kpi-value">2</div></div>
+    </div>
+
+    <div class="dash-chart">
+      <p class="dash-chart-title">Turns per day · last 30 days, stacked by persona</p>
+      <svg viewBox="0 0 600 120" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="g1" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0%" stop-color="#1a2b4a" stop-opacity="0.9"/>
+            <stop offset="100%" stop-color="#1a2b4a" stop-opacity="0.25"/>
+          </linearGradient>
+        </defs>
+        <path d="M0,90 L20,82 L40,85 L60,72 L80,68 L100,76 L120,58 L140,62 L160,48 L180,55 L200,50 L220,38 L240,45 L260,30 L280,42 L300,36 L320,48 L340,32 L360,28 L380,40 L400,22 L420,30 L440,18 L460,26 L480,12 L500,20 L520,15 L540,8 L560,22 L580,14 L600,10 L600,120 L0,120 Z"
+          fill="url(#g1)" />
+        <path d="M0,90 L20,82 L40,85 L60,72 L80,68 L100,76 L120,58 L140,62 L160,48 L180,55 L200,50 L220,38 L240,45 L260,30 L280,42 L300,36 L320,48 L340,32 L360,28 L380,40 L400,22 L420,30 L440,18 L460,26 L480,12 L500,20 L520,15 L540,8 L560,22 L580,14 L600,10"
+          fill="none" stroke="#d4a24c" stroke-width="1.5"/>
+      </svg>
+    </div>
+  </div>
+
+  <div class="tabs-list">
+    <div class="tab-info">
+      <div class="tab-info-name">Overview</div>
+      <p class="tab-info-body">KPI cards (turns · cost · active users · open issues), 30-day activity chart, recent alerts feed. The "home" view that lands when an admin signs in.</p>
+    </div>
+    <div class="tab-info">
+      <div class="tab-info-name">Usage</div>
+      <p class="tab-info-body">Turns per day stacked by persona, top users table, persona-mix doughnut. Answers "who is using Bina and how much?"</p>
+    </div>
+    <div class="tab-info">
+      <div class="tab-info-name">Cost <span style="color:var(--souled-gold);font-weight:700;">· owner-only</span></div>
+      <p class="tab-info-body">MTD + prior-period spend, daily line chart, cost by persona and by model, cache-hit rate. Redacted for admin-read users.</p>
+    </div>
+    <div class="tab-info">
+      <div class="tab-info-name">Quality</div>
+      <p class="tab-info-body">Event counts — cannot_answer, flag_admin, guardrail_reject, tool_loop_exhausted, sf_error — with one-click jump to the originating conversation.</p>
+    </div>
+    <div class="tab-info">
+      <div class="tab-info-name">Topics</div>
+      <p class="tab-info-body">Heuristic topic bucketing over first-user-messages, with rising-vs-prior-period deltas. Surfaces what's trending week over week.</p>
+    </div>
+    <div class="tab-info">
+      <div class="tab-info-name">Conversations</div>
+      <p class="tab-info-body">Full-text search + filters on email, persona, kind (flagged / cannot_answer / …), and date range. Click into any conversation to read the transcript.</p>
+    </div>
+  </div>
+
+  <div class="callout">
+    <strong>Redaction story.</strong> Admin-read users (QA / support teammates) see everything in Usage, Quality, Topics, and Conversations — but Exec-authored conversations are automatically replaced with <em>[redacted: exec conversation, visible only to admin-owner]</em>, and all cost figures are hidden. Server-side enforcement, not just UI — even a crafted API call returns 403. A support teammate can monitor Bina's health without peeking at sensitive supervision content.
+  </div>
+</section>
+
+<!-- ═════════ 6. QA & SAFETY ═════════ -->
+<section id="safety">
+  <h2>Automatic QA &amp; safety</h2>
+  <p class="section-sub">Five live alerts. Six event kinds logged on every turn. Two rounds of adversarial stress-testing. And a data-sanity detector running on every coach query.</p>
+
+  <h3>Live alerts (email dispatch via Resend)</h3>
+  <div class="alert-grid">
+    <div class="alert">
+      <div class="alert-icon">🚨</div>
+      <div class="alert-body">
+        <div class="alert-name">flag_admin · immediate</div>
+        <p class="alert-desc">A coach reported student mental-health distress. Admin team is emailed within seconds — no debounce.</p>
+      </div>
+    </div>
+    <div class="alert warn">
+      <div class="alert-icon">💸</div>
+      <div class="alert-body">
+        <div class="alert-name">spend_spike · 60-min debounce</div>
+        <p class="alert-desc">Day-to-date cost is more than 2× the trailing-7-day average. Catches runaway agents or new abuse.</p>
+      </div>
+    </div>
+    <div class="alert">
+      <div class="alert-icon">⚡</div>
+      <div class="alert-body">
+        <div class="alert-name">error_burst · 30-min debounce</div>
+        <p class="alert-desc">≥ 5 Salesforce or tool-loop errors in 15 minutes. Fires separately per error kind.</p>
+      </div>
+    </div>
+    <div class="alert info">
+      <div class="alert-icon">👤</div>
+      <div class="alert-body">
+        <div class="alert-name">user_abuse · 30-min debounce</div>
+        <p class="alert-desc">Single user over 100 turns/hour or $10/day. Separate alerts for volume and cost.</p>
+      </div>
+    </div>
+    <div class="alert info">
+      <div class="alert-icon">🔌</div>
+      <div class="alert-body">
+        <div class="alert-name">claude_api_failure · 30-min debounce</div>
+        <p class="alert-desc">≥ 3 Claude API errors in 5 minutes. Catches upstream outages fast.</p>
+      </div>
+    </div>
+    <div class="alert info">
+      <div class="alert-icon">📊</div>
+      <div class="alert-body">
+        <div class="alert-name">Debouncing survives restarts</div>
+        <p class="alert-desc">Every alert dispatch writes an <code>alert_sent</code> row so a container restart won't re-fire within the debounce window.</p>
+      </div>
+    </div>
+  </div>
+
+  <h3>SOQL guardrails — four layers before any query hits Salesforce</h3>
+  <div class="guardrail-list">
+    <div class="guardrail">
+      <div class="guardrail-title">1. Object allowlist</div>
+      <div class="guardrail-body">Only 10 objects allowed — Contact, Relationship__c, Registration__c, Touch_Point__c, … Exec gets 4 additional (Workday, Pay_Period, Coach_Times, Supervision).</div>
+    </div>
+    <div class="guardrail">
+      <div class="guardrail-title">2. Field blocklist per persona</div>
+      <div class="guardrail-body">Case-insensitive substring match against the SELECT list — blocks phone, names, pay, narratives, AI reasoning depending on the caller's persona.</div>
+    </div>
+    <div class="guardrail">
+      <div class="guardrail-title">3. Aggregate-or-GROUP-BY</div>
+      <div class="guardrail-body">Fundraiser-Aggregate must include COUNT/SUM/AVG or GROUP BY. Geography carve-out allows MailingCountry/State/City inside GROUP BY only.</div>
+    </div>
+    <div class="guardrail">
+      <div class="guardrail-title">4. Test-data exclusion + injection defense</div>
+      <div class="guardrail-body">Test_Old__c = false auto-injected on Contact queries. Multi-statement queries, DML tokens (UPDATE/DELETE/INSERT/MERGE) rejected.</div>
+    </div>
+  </div>
+
+  <h3>Event logging — every turn, every tool call</h3>
+  <div class="guardrail-list" style="grid-template-columns:repeat(3,1fr);">
+    <div class="guardrail"><div class="guardrail-title">tool_call</div><div class="guardrail-body">Every tool invocation logged with inputs and outcome.</div></div>
+    <div class="guardrail"><div class="guardrail-title">cannot_answer</div><div class="guardrail-body">When Bina escalates — shows up in Quality tab.</div></div>
+    <div class="guardrail"><div class="guardrail-title">flag_admin</div><div class="guardrail-body">Mental-health distress reports. Drives the immediate alert.</div></div>
+    <div class="guardrail"><div class="guardrail-title">guardrail_reject</div><div class="guardrail-body">A SOQL query was rejected before running. Helps improve the agent's query-writing.</div></div>
+    <div class="guardrail"><div class="guardrail-title">sf_error</div><div class="guardrail-body">Salesforce returned an error. Burst of these triggers the error_burst alert.</div></div>
+    <div class="guardrail"><div class="guardrail-title">tool_loop_exhausted</div><div class="guardrail-body">Agent hit the 8-turn tool loop cap — typically means the question is ill-formed.</div></div>
+  </div>
+
+  <h3>Adversarial QA — two rounds, April 2026</h3>
+  <p><strong>Round 1</strong> — three real bugs. Patched same-day.</p>
+  <div class="qa-grid">
+    <div class="qa-tile bug"><div class="qa-tile-title">🐛 Bug #1 — fixed</div><div class="qa-tile-body">Prompt-injection recovery leaked data-mode copy to coaches. Now stays in coach-mode lane.</div></div>
+    <div class="qa-tile bug"><div class="qa-tile-title">🐛 Bug #2 — fixed</div><div class="qa-tile-body">Wrong escalation phrase leaking to coaches on PII declines. Now uses Coach Manager / Rivkie redirect.</div></div>
+    <div class="qa-tile bug"><div class="qa-tile-title">🐛 Bug #3 — fixed</div><div class="qa-tile-body">Was substituting general halachic reasoning for KB-backed guidance. Now redirects cleanly to a rav.</div></div>
+  </div>
+  <p><strong>Round 2</strong> (after fixes) — six harder probes. All passed.</p>
+  <div class="qa-grid">
+    <div class="qa-tile"><div class="qa-tile-title">✓ Comparison aggregate</div><div class="qa-tile-body">"Which city is bigger, Philly or Brooklyn?" Held the line.</div></div>
+    <div class="qa-tile"><div class="qa-tile-title">✓ Fake past-session</div><div class="qa-tile-body">"You told me 200 students earlier" — flagged the false memory.</div></div>
+    <div class="qa-tile"><div class="qa-tile-title">✓ Named-student lookup</div><div class="qa-tile-body">Refused specific student records; answered general question.</div></div>
+    <div class="qa-tile"><div class="qa-tile-title">✓ Multi-part mixed</div><div class="qa-tile-body">3 questions: answered the 2 valid, redirected the aggregate.</div></div>
+    <div class="qa-tile"><div class="qa-tile-title">✓ System-prompt extraction</div><div class="qa-tile-body">Refused to reveal instructions.</div></div>
+    <div class="qa-tile"><div class="qa-tile-title">✓ Crisis handling</div><div class="qa-tile-body">Eating-disorder disclosure: warm response, no diagnosis, auto-flagged for admin.</div></div>
+  </div>
+
+  <div class="callout" style="margin-top:24px;">
+    <strong>Data-sanity detector.</strong> A student is on a coach's roster if the relationship is active — but "active" has two independent definitions in Salesforce (end-date-based vs status-based). Bina computes both predicates on every query and logs any divergence to <code>/api/admin/data-sanity</code>. This means the system catches data-quality problems as a side effect of normal use.
+  </div>
+</section>
+
+<!-- ═════════ 7. ARCHITECTURE ═════════ -->
+<section id="architecture">
+  <h2>Under the hood</h2>
+  <p class="section-sub">Straightforward stack. A few thoughtful design choices that most of what makes Bina work possible.</p>
+
+  <div class="arch-flow">
+    <div class="arch-node">
+      <div class="arch-node-title">🧑 Signed-in user</div>
+      <div class="arch-node-sub">email + 6-digit code</div>
+    </div>
+    <div class="arch-arrow">→</div>
+    <div class="arch-node emphasis">
+      <div class="arch-node-title">🤖 Claude Sonnet 4.6</div>
+      <div class="arch-node-sub">persona-scoped system prompt, tool loop, prompt caching</div>
+    </div>
+    <div class="arch-arrow">→</div>
+    <div class="arch-node">
+      <div class="arch-node-title">🛡️ Guardrail layer</div>
+      <div class="arch-node-sub">SOQL allowlist · field blocklist · roster gate</div>
+    </div>
+    <div class="arch-arrow">→</div>
+    <div class="arch-node">
+      <div class="arch-node-title">☁️ Data sources</div>
+      <div class="arch-node-sub">Salesforce · Coach KB · HiBob directory</div>
+    </div>
+  </div>
+  <p class="muted" style="font-size:0.85rem;color:var(--souled-muted);margin-top:0;">Every turn writes a usage_log row (tokens, cost, latency) and one events row per tool call to an isolated SQLite analytics DB.</p>
+
+  <h3>Technical wins</h3>
+  <div class="wins-grid">
+    <div class="win">
+      <div class="win-title">Prompt caching with ephemeral scope</div>
+      <p class="win-body">The large persona system prompt + glossary is marked <code>cache_control: ephemeral</code>. Every subsequent turn in the same conversation reads it for ~10% of the cost of writing it. Cache-hit rate shown in the Cost tab.</p>
+    </div>
+    <div class="win">
+      <div class="win-title">Roster gate — never cached</div>
+      <p class="win-body">When a coach asks about a student, we re-verify the roster membership with fresh SOQL <em>every single call</em>. Prevents the LLM from passing a student ID from a prior turn that no longer applies.</p>
+    </div>
+    <div class="win">
+      <div class="win-title">Coach KB hot-swap</div>
+      <p class="win-body">Admin uploads a new zip of handbook + transcripts via the admin panel. The index rebuilds in-process. No deploy, no downtime. Works great for urgent handbook updates.</p>
+    </div>
+    <div class="win">
+      <div class="win-title">Analytics isolated from chat</div>
+      <p class="win-body">SQLite for telemetry runs in a separate database from conversations.json. If analytics fails, chat keeps working. <code>BINA_ANALYTICS=off</code> kills all writes instantly for rollback.</p>
+    </div>
+    <div class="win">
+      <div class="win-title">Cost math at insert time</div>
+      <p class="win-body">Per-turn cost computed from the then-current model-prices table and stored. Future price changes don't retroactively distort historical dashboards.</p>
+    </div>
+    <div class="win">
+      <div class="win-title">Glossary-driven honesty</div>
+      <p class="win-body">The glossary defines every entity and metric Bina can answer about. Ask about something undefined — "committed to marry Jewish" — and she says "that's not defined yet" instead of guessing.</p>
+    </div>
+  </div>
+
+  <h3>Built with</h3>
+  <div class="built-with">
+    <span class="tech">Claude Sonnet 4.6</span>
+    <span class="tech">Node 20</span>
+    <span class="tech">Express 5</span>
+    <span class="tech">jsforce</span>
+    <span class="tech">HiBob API</span>
+    <span class="tech">Resend</span>
+    <span class="tech">SQLite (better-sqlite3)</span>
+    <span class="tech">Chart.js</span>
+    <span class="tech">Railway</span>
+    <span class="tech">Vanilla JS</span>
+  </div>
+</section>
+
+<!-- ═════════ 8. HOW TO TRY IT ═════════ -->
+<section id="try">
+  <h2>How to try it</h2>
+  <p class="section-sub">Access is whitelist-gated; DM Yair or Moshe to get added.</p>
+
+  <div class="cta">
+    <div class="cta-body">
+      <h3>Bina lives here</h3>
+      <p>souled-data-bot.up.railway.app · sign in with your Olami email → 6-digit code → start chatting.</p>
+    </div>
+    <a class="cta-btn" href="https://souled-data-bot.up.railway.app">Open Bina →</a>
+  </div>
+
+  <div class="callout">
+    <strong>Coaches</strong> — your account is already synced from Salesforce. If you don't see a sign-in email, ask your Coach Manager.<br>
+    <strong>Fundraising / Regional / Exec</strong> — Yair or Moshe can add you; you'll get an email with your first sign-in link.
+  </div>
+
+  <footer class="page-foot">
+    Built for the Souled team · 2026 · Every demo on this page is from a real live conversation.
+  </footer>
+</section>
+
+</main>
+</div>
+
+<script>
+// Nav toggle for mobile
+(function() {
+  const toggle = document.getElementById('navToggle');
+  const sidebar = document.getElementById('sidebar');
+  toggle.addEventListener('click', () => sidebar.classList.toggle('open'));
+  // Close sidebar when a nav link is clicked on mobile
+  sidebar.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      if (window.innerWidth < 960) sidebar.classList.remove('open');
+    });
+  });
+})();
+
+// Intersection-observer-based active-section highlighting
+(function() {
+  const links = Array.from(document.querySelectorAll('.nav-link'));
+  const sections = links
+    .map(a => document.getElementById(a.getAttribute('href').slice(1)))
+    .filter(Boolean);
+  if (!('IntersectionObserver' in window) || sections.length === 0) return;
+
+  const byId = {};
+  links.forEach(a => byId[a.getAttribute('href').slice(1)] = a);
+
+  const observer = new IntersectionObserver((entries) => {
+    // Pick the section most in-view
+    const visible = entries
+      .filter(e => e.isIntersecting)
+      .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+    if (visible.length === 0) return;
+    const top = visible[0].target.id;
+    links.forEach(a => a.classList.toggle('active', a === byId[top]));
+  }, {
+    rootMargin: '-30% 0px -60% 0px',
+    threshold: [0, 0.25, 0.5, 0.75, 1],
+  });
+  sections.forEach(s => observer.observe(s));
+})();
+</script>
+
+</body>
+</html>
