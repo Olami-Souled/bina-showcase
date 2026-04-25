@@ -250,6 +250,7 @@ h3 { color: var(--souled-navy); font-size: 1.15rem; margin: 28px 0 10px; }
 .persona-card.analyst::before  { background: #0891b2; }
 .persona-card.aggregate::before{ background: var(--souled-gold); }
 .persona-card.coach::before    { background: var(--souled-pink); }
+.persona-card.referring-org::before { background: #7c3aed; }
 .persona-name {
   font-size: 1.05rem;
   font-weight: 700;
@@ -755,55 +756,55 @@ footer.page-foot {
 <!-- ═════════ 1. OVERVIEW ═════════ -->
 <section id="overview">
   <div class="hero">
-    <h1>One chat. Five experiences. Strict guardrails.</h1>
-    <p class="tagline">Bina (Hebrew: <em>understanding</em>) is Souled's in-house AI assistant. Every Olami/Souled staff member gets a chat window tailored to exactly what their role should see — and nothing they shouldn't.</p>
-    <p class="pitch">Coaches get a <strong>sidekick</strong> for handbook lookups, their caseload, and student history. Regional directors get <strong>scoped student data</strong>. Fundraisers get <strong>aggregate counts and ready-to-share lists</strong>. Exec gets <strong>full access</strong>. One codebase. Five signed-in realities.</p>
+    <h1>One chat. Built for every Olami team.</h1>
+    <p class="tagline">Bina (Hebrew: <em>understanding</em>) is Souled's in-house AI assistant. Every Olami/Souled staff member — and now every partner-org contact — gets a chat window tailored to exactly what their role should see, and nothing they shouldn't.</p>
+    <p class="pitch">Coaches get a <strong>sidekick</strong> for handbook lookups, their caseload, and student history. Regional directors get <strong>scoped student data</strong>. Fundraisers get <strong>aggregate counts and ready-to-share lists</strong>. Partner orgs get <strong>visibility into the students they referred</strong>. Exec gets <strong>full access</strong>. One chat. Six signed-in realities.</p>
   </div>
 
   <div class="kpi-grid">
     <div class="kpi">
-      <div class="kpi-label">Personas</div>
-      <div class="kpi-value">5</div>
-      <div class="kpi-sub">with 2 admin tiers on top</div>
+      <div class="kpi-label">User types</div>
+      <div class="kpi-value">6</div>
+      <div class="kpi-sub">plus 2 admin levels on top</div>
     </div>
     <div class="kpi">
-      <div class="kpi-label">Tool capabilities</div>
-      <div class="kpi-value">9</div>
-      <div class="kpi-sub">each scoped by persona</div>
+      <div class="kpi-label">Things she does</div>
+      <div class="kpi-value">10+</div>
+      <div class="kpi-sub">each scoped to the user's role</div>
     </div>
     <div class="kpi">
-      <div class="kpi-label">Knowledge chunks</div>
-      <div class="kpi-value">~1,000</div>
-      <div class="kpi-sub">handbook · Q&amp;A · emails · meetings</div>
+      <div class="kpi-label">Knowledge snippets</div>
+      <div class="kpi-value">~3,800</div>
+      <div class="kpi-sub">handbook · Q&amp;A · emails · meetings · videos</div>
     </div>
     <div class="kpi">
       <div class="kpi-label">Auto-alerts</div>
       <div class="kpi-value">5</div>
-      <div class="kpi-sub">flag · spike · burst · abuse · API</div>
+      <div class="kpi-sub">for anything unusual or urgent</div>
     </div>
   </div>
 
   <div class="intro-card">
-    <p><strong>What's new as of 2026-04-24:</strong> Bina now has a full admin dashboard (usage · cost · quality · topics · conversation search), auto-alerting for anomalies, a 5-persona access-control model, coach caseload tools, and a HiBob-backed header chip showing who's signed in. The guardrails — SOQL allowlist, field blocklist, aggregate-only enforcement, roster re-verification on every coach query — run on every turn.</p>
+    <p><strong>The big idea.</strong> Bina knows who's signed in. A coach asking about her own student gets a different reply than a fundraiser asking the same question — and a regional director gets something different again. The system checks every request against the user's role before any answer is generated, so sensitive details never leak across teams.</p>
   </div>
 </section>
 
 <!-- ═════════ 2. WHO USES IT ═════════ -->
 <section id="who">
   <h2>Who uses Bina</h2>
-  <p class="section-sub">Five personas, each with tailored access. Two admin tiers for observability. One impersonation toggle so admins can QA any persona without switching accounts.</p>
+  <p class="section-sub">Six user types, each with tailored access. Two admin levels for monitoring. And admins can view Bina as any signed-in teammate to help them debug or QA.</p>
 
   <div class="persona-grid">
 
     <div class="persona-card exec">
       <div class="persona-name">👑 Exec</div>
-      <div class="persona-who">Olami exec team · Adina Stilerman · Rivkie Kahn</div>
+      <div class="persona-who">Yair Spolter · Moshe Cosio · Robyn Cohen · senior leadership</div>
       <div class="persona-section">
         <div class="persona-section-label">Can do</div>
         <ul class="persona-list">
-          <li>Any Salesforce query — students, coaches, narratives, supervision notes</li>
-          <li>Coach pay and AI-derived SO/STAM reasoning</li>
-          <li>Search the coach knowledge base (handbook, Adina Q&amp;A, team chat)</li>
+          <li>Any question about students, coaches, registrations, engagement, or supervision</li>
+          <li>Read narrative notes, coach pay, and the AI's religious-status reasoning</li>
+          <li>Search the full coach knowledge base (handbook, Adina Q&amp;A, team chat)</li>
         </ul>
       </div>
       <div class="persona-example">"Pull the supervision note from Sarah Cohen's last session."</div>
@@ -872,49 +873,67 @@ footer.page-foot {
           <li>Coaching advice from handbook, Adina Q&amp;A, Rivkie's weekly Y.I.D, team chat</li>
           <li><strong>Her own caseload</strong>: schedule, overdue notes, hours, pay summaries</li>
           <li><strong>Her own students</strong>: history, touchpoints, trips and classes attended</li>
-          <li>Local connections · upcoming trips · classes · coach meetings</li>
+          <li>Local connections · upcoming trips · classes · coach meetings · video recommendations from the Souled library</li>
         </ul>
       </div>
       <div class="persona-section">
         <div class="persona-section-label">Blocked by design</div>
-        <ul class="persona-list blocked"><li>No SOQL · no data about students not on her roster · no supervisor narratives about her</li></ul>
+        <ul class="persona-list blocked"><li>No data about students not on her roster · no supervisor narratives about her</li></ul>
       </div>
       <div class="persona-example">"My student keeps canceling our sessions — how should I handle it?"</div>
     </div>
 
+    <div class="persona-card referring-org">
+      <div class="persona-name">🤝 Referring Organization</div>
+      <div class="persona-who">Partner orgs (Hillels, Chabad houses, campus orgs, schools)</div>
+      <div class="persona-section">
+        <div class="persona-section-label">Can do</div>
+        <ul class="persona-list">
+          <li>See the students <strong>their org</strong> referred to Souled</li>
+          <li>Track those students' registrations, classes attended, trips joined</li>
+          <li>Browse the Souled catalog — upcoming events, classes, library videos</li>
+        </ul>
+      </div>
+      <div class="persona-section">
+        <div class="persona-section-label">Blocked by design</div>
+        <ul class="persona-list blocked"><li>No contact info · no meeting notes · no other orgs' students</li></ul>
+      </div>
+      <div class="persona-example">"Of the students we sent to Souled this year, how many are actively engaged?"</div>
+    </div>
+
   </div>
 
-  <h3>Plus two admin tiers — layered on top of any persona</h3>
+  <h3>Plus two admin levels — layered on top of any user type</h3>
   <div class="admin-tiers">
     <div class="admin-tier">
       <h4>🔑 Owner</h4>
-      <p class="desc">Yair, Moshe, Robyn. Everything: whitelist, KB upload, coach sync, cost metrics, impersonation.</p>
+      <p class="desc">Yair, Moshe, Robyn. Full control: manage who has access, upload the coach knowledge base, see cost metrics, view as any user.</p>
       <ul>
         <li>All dashboard tabs including <strong>Cost</strong></li>
-        <li>View Exec conversations in the transcript viewer</li>
-        <li>Edit whitelist, generate sign-in links, upload coach KB</li>
+        <li>Read Exec conversations in the transcript viewer</li>
+        <li>Edit the user list, generate sign-in links, upload knowledge updates</li>
       </ul>
     </div>
     <div class="admin-tier">
       <h4>👀 Read</h4>
-      <p class="desc">QA / support teammates who need to monitor without peeking at sensitive content.</p>
+      <p class="desc">QA / support teammates who monitor Bina without seeing sensitive content.</p>
       <ul>
-        <li>Usage · Quality · Topics tabs (no Cost figures)</li>
-        <li>Exec conversations auto-redacted in the list and detail views</li>
-        <li>No mutations — server-side 403 even on crafted requests</li>
+        <li>Usage · Quality · Topics tabs (cost figures hidden)</li>
+        <li>Exec conversations auto-redacted in lists and transcripts</li>
+        <li>Read-only — can't change anything</li>
       </ul>
     </div>
   </div>
 
   <div class="callout">
-    <strong>Impersonation for QA.</strong> Admin-owner and admin-read users have a "View as…" dropdown — Exec, Regional, Fundraiser (Analyst), Fundraiser (Aggregate), Coach. One click and the whole chat experience switches perspective, while the real admin tier is preserved server-side so no privilege escalation is possible.
+    <strong>"View as" — debugging without switching accounts.</strong> Admins can pick any specific signed-in teammate from a dropdown — "View as Daniella Cohen" or "View as Ariel Schochet" — and see exactly what that person sees. Helpful for answering "I asked Bina X and got Y, why?" Every action stays attributed to the real admin in the logs, and the admin's own access level is preserved.
   </div>
 </section>
 
 <!-- ═════════ 3. WHAT SHE CAN DO ═════════ -->
 <section id="features">
   <h2>What Bina can do</h2>
-  <p class="section-sub">Nine distinct tool capabilities. Which ones are available depends on the signed-in persona.</p>
+  <p class="section-sub">Ten ways she helps, depending on who's signed in.</p>
 
   <div class="feature-group">
     <span class="feature-group-title">💛 Coach-only tools</span>
@@ -941,11 +960,15 @@ footer.page-foot {
       </div>
       <div class="feature">
         <div class="feature-head"><span class="feature-icon">🗓️</span><span class="feature-title">Look up upcoming events + classes</span></div>
-        <p class="feature-body">Live Salesforce calendar — Shabbatons, retreats, Souled Circles, coach staff meetings. Dates, location, Zoom links, flyers.</p>
+        <p class="feature-body">Live calendar — Shabbatons, retreats, Souled Circles, coach staff meetings. Dates, location, Zoom links, flyers.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-head"><span class="feature-icon">🎥</span><span class="feature-title">Recommend a Souled video</span></div>
+        <p class="feature-body">She knows the full Souled video library and can match a video to whatever the student is working on — share-ready link included.</p>
       </div>
       <div class="feature">
         <div class="feature-head"><span class="feature-icon">🚨</span><span class="feature-title">Flag for admin review</span></div>
-        <p class="feature-body">If a coach reports mental-health distress, Bina responds supportively and immediately emails the admin team.</p>
+        <p class="feature-body">If a coach reports a student in real distress, Bina responds supportively and immediately emails the admin team.</p>
       </div>
     </div>
   </div>
@@ -954,12 +977,26 @@ footer.page-foot {
     <span class="feature-group-title">👑 Exec · 🗺️ Regional · 📊 Analyst · 📈 Aggregate tools</span>
     <div class="feature-grid">
       <div class="feature">
-        <div class="feature-head"><span class="feature-icon">🧠</span><span class="feature-title">Run a Salesforce query</span></div>
-        <p class="feature-body">Claude writes SOQL from a plain-English question. Guardrails check it before it runs — allowed objects, allowed fields per persona, aggregate-or-row, Test contacts auto-excluded.</p>
+        <div class="feature-head"><span class="feature-icon">🧠</span><span class="feature-title">Ask any data question in plain English</span></div>
+        <p class="feature-body">No need to know any query language — just ask. Bina translates the question into a database query, checks it against the user's permissions, and returns the answer. Test records and blocked fields are filtered out before any results are shown.</p>
       </div>
       <div class="feature">
-        <div class="feature-head"><span class="feature-icon">🪄</span><span class="feature-title">Escalate what she can't answer</span></div>
-        <p class="feature-body">Qualitative questions, undefined glossary terms, off-scope asks — she flags the conversation, notifies the Souled Data Team, and tells the user a human will follow up.</p>
+        <div class="feature-head"><span class="feature-icon">🪄</span><span class="feature-title">Honest escalation when she can't answer</span></div>
+        <p class="feature-body">If a question is qualitative or asks about something Souled doesn't track, Bina says so — no guessing. She flags the conversation, notifies the Souled Data Team, and tells the user a human will follow up.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="feature-group">
+    <span class="feature-group-title">🤝 Referring-Org tools</span>
+    <div class="feature-grid">
+      <div class="feature">
+        <div class="feature-head"><span class="feature-icon">📜</span><span class="feature-title">Students we referred</span></div>
+        <p class="feature-body">Browse the students your org sent to Souled — registration history, classes attended, trips joined, broad engagement signals (active / inactive).</p>
+      </div>
+      <div class="feature">
+        <div class="feature-head"><span class="feature-icon">📚</span><span class="feature-title">Souled catalog</span></div>
+        <p class="feature-body">Search upcoming events, classes, and the public Souled video library — handy for sharing with prospective students.</p>
       </div>
     </div>
   </div>
@@ -968,7 +1005,7 @@ footer.page-foot {
 <!-- ═════════ 4. LIVE DEMOS ═════════ -->
 <section id="demos">
   <h2>Live demos</h2>
-  <p class="section-sub">Eight real conversations from live sessions — the user's question on the right, Bina's unedited reply on the left.</p>
+  <p class="section-sub">Real conversations from live sessions — the user's question on the right, Bina's unedited reply on the left.</p>
 
   <!-- DEMO 1 -->
   <div class="demo">
@@ -1041,11 +1078,37 @@ footer.page-foot {
     </div>
   </div>
 
-  <!-- DEMO 4 -->
+  <!-- DEMO 4 (NEW) -->
   <div class="demo">
-    <div class="demo-label">Demo 4 · Regional · Persona-gated query</div>
+    <div class="demo-label">Demo 4 · Coach · Video recommendation</div>
+    <h3 class="demo-title">A Souled video to share with a student going through trauma</h3>
+    <p class="demo-what">Coach asks for a video she can send a student. Bina knows the full Souled library — every talk, indexed by topic and theme — and pulls back a real recommendation with a share-ready link.</p>
+    <div class="bubble user">I have a student going through trauma — is there a Souled video I can share with her?</div>
+    <div class="bubble assistant">
+      <p>Great news — there's a perfect Souled library video for this! 🎬</p>
+      <p>There's a library video called <strong>"What Trauma Leaves Behind"</strong> that sounds like exactly what your student needs. Here's what it covers:</p>
+      <ul>
+        <li><strong>How to define trauma</strong> — distinguishing it from everyday stress and struggle, so your student can understand and name what she's experiencing without shame</li>
+        <li><strong>The trauma network</strong> — how past trauma gets "activated" in the present, and why it can feel so overwhelming even when the original event is over</li>
+        <li><strong>Intergenerational trauma</strong> — including fascinating research on Holocaust survivors and their descendants</li>
+        <li><strong>Radical acceptance</strong> — practical tools from DBT (Dialectical Behavior Therapy) for sitting with pain, validating oneself, and moving forward without erasing what happened</li>
+        <li><strong>Personal and national trauma</strong> — the speakers also connect individual trauma to the broader Jewish experience of anti-Semitism and national suffering, which could be powerfully meaningful for a student exploring her Jewish identity</li>
+      </ul>
+      <p>The tone is warm, personal, and psychologically grounded — definitely accessible for a student who may not have a Torah background yet.</p>
+      <p>📺 You can share the video with your student here: <strong><a href="#">What Trauma Leaves Behind</a></strong></p>
+      <p>Let me know if you'd like to talk through how to frame it for your student, or if there's anything else I can pull up for you!</p>
+    </div>
+    <div class="highlight">
+      <div class="highlight-title">What's impressive</div>
+      Bina has the full Souled video library indexed and searchable by what each video actually <em>says</em> — not just titles or tags. She matched the coach's situation to the video, summarized its content (DBT tools, intergenerational trauma research, the personal-to-national thread) so the coach knows whether it's the right fit, flagged the tone for a student without much Torah background, and handed over a public share link the coach can text the student right away. The whole thing in one reply, ready to send.
+    </div>
+  </div>
+
+  <!-- DEMO 5 -->
+  <div class="demo">
+    <div class="demo-label">Demo 5 · Regional · Role-scoped data</div>
     <h3 class="demo-title">"Which of my students hit SO in FY25?"</h3>
-    <p class="demo-what">Ariel (regional) gets confirmed counts with AI verdicts. Phone and narratives stay blocked.</p>
+    <p class="demo-what">Regional director gets confirmed counts and AI verdicts. Phone and narrative notes stay blocked.</p>
     <div class="bubble user">which of my students hit SO in FY25?</div>
     <div class="bubble assistant">
       <p>In FY25 (July 1 2024 – June 30 2025), <strong>16 students</strong> in your region reached Shabbos-Observant status. Here's the AI-verdict breakdown and the names:</p>
@@ -1070,11 +1133,11 @@ footer.page-foot {
     </div>
   </div>
 
-  <!-- DEMO 5 -->
+  <!-- DEMO 6 -->
   <div class="demo">
-    <div class="demo-label">Demo 5 · Fundraiser-Aggregate · Geography carve-out</div>
+    <div class="demo-label">Demo 6 · Fundraiser · Counts without names</div>
     <h3 class="demo-title">"How many students attended a Shabbaton across our US states?"</h3>
-    <p class="demo-what">Aggregate-only persona. Geography appears inside GROUP BY. No names ever surface.</p>
+    <p class="demo-what">Aggregate user. State-level rollup is fine. No names appear.</p>
     <div class="bubble user">how many students attended at least one shabbaton across our US states in 2025?</div>
     <div class="bubble assistant">
       <p><strong>493 unique US-based Souled students</strong> attended at least one Shabbaton in 2025. Top 10 states:</p>
@@ -1097,13 +1160,13 @@ footer.page-foot {
     </div>
     <div class="highlight">
       <div class="highlight-title">What's impressive</div>
-      <strong>Geography carve-out</strong> — MailingState is allowed inside a GROUP BY for the aggregate persona, but if the same user asked "who attended?" they'd get redirected. The guardrail parses the SOQL SELECT list before it runs; PII fields trigger a rejection with a human-readable explanation the agent uses to reformulate.
+      State counts are allowed; individual names are not. If the same user asked "who attended?" Bina would catch it before the query ran and politely redirect — the safety check happens before anything reaches Salesforce.
     </div>
   </div>
 
-  <!-- DEMO 6 -->
+  <!-- DEMO 7 -->
   <div class="demo">
-    <div class="demo-label">Demo 6 · Coach · Policy &amp; process</div>
+    <div class="demo-label">Demo 7 · Coach · Policy &amp; process</div>
     <h3 class="demo-title">"When do I get paid for last month's sessions?"</h3>
     <p class="demo-what">The kind of admin question that used to hit someone's inbox at 10pm on a Sunday.</p>
     <div class="bubble user">when do I get paid for last month's sessions?</div>
@@ -1122,9 +1185,9 @@ footer.page-foot {
     </div>
   </div>
 
-  <!-- DEMO 7 -->
+  <!-- DEMO 8 -->
   <div class="demo">
-    <div class="demo-label">Demo 7 · Coach · Handling a tough situation</div>
+    <div class="demo-label">Demo 8 · Coach · Handling a tough situation</div>
     <h3 class="demo-title">Student who keeps canceling</h3>
     <p class="demo-what">Pulls the actual team policy — including the exact language the coach can use with her student.</p>
     <div class="bubble user">my student keeps canceling our sessions, what should I do?</div>
@@ -1142,11 +1205,11 @@ footer.page-foot {
     </div>
   </div>
 
-  <!-- DEMO 8 -->
+  <!-- DEMO 9 -->
   <div class="demo">
-    <div class="demo-label">Demo 8 · Coach · Calendar lookup</div>
+    <div class="demo-label">Demo 9 · Coach · Calendar lookup</div>
     <h3 class="demo-title">"When is the next coach staff meeting?"</h3>
-    <p class="demo-what">Live Salesforce calendar query — <code>Course_Occurrence__c</code>.</p>
+    <p class="demo-what">Live calendar pulled straight from Salesforce.</p>
     <div class="bubble user">When is the next coach staff meeting?</div>
     <div class="bubble assistant">
       <p>Here's what's on the calendar:</p>
@@ -1172,7 +1235,7 @@ footer.page-foot {
 <!-- ═════════ 5. ADMIN DASHBOARD ═════════ -->
 <section id="dashboard">
   <h2>Admin dashboard</h2>
-  <p class="section-sub">Six tabs + full conversation search. Built on a SQLite analytics layer that's isolated from the chat path — so analytics failures never block chat.</p>
+  <p class="section-sub">Seven tabs plus full conversation search. Everything an admin needs to see who's using Bina, what she's costing, and whether anything's broken — all in one place.</p>
 
   <div class="dash-mock">
     <div class="dash-tabs">
@@ -1182,7 +1245,8 @@ footer.page-foot {
       <div class="dash-tab">Quality</div>
       <div class="dash-tab">Topics</div>
       <div class="dash-tab">Conversations</div>
-      <div class="dash-tab">Whitelist</div>
+      <div class="dash-tab">Data sanity</div>
+      <div class="dash-tab">Users</div>
     </div>
 
     <div class="dash-kpi-row">
@@ -1216,131 +1280,125 @@ footer.page-foot {
     </div>
     <div class="tab-info">
       <div class="tab-info-name">Usage</div>
-      <p class="tab-info-body">Turns per day stacked by persona, top users table, persona-mix doughnut. Answers "who is using Bina and how much?"</p>
+      <p class="tab-info-body">How many questions per day, who's asking, and which user types are most active. Answers "who's using Bina and how much?"</p>
     </div>
     <div class="tab-info">
       <div class="tab-info-name">Cost <span style="color:var(--souled-gold);font-weight:700;">· owner-only</span></div>
-      <p class="tab-info-body">MTD + prior-period spend, daily line chart, cost by persona and by model, cache-hit rate. Redacted for admin-read users.</p>
+      <p class="tab-info-body">Month-to-date spend, daily trend, cost split by user type and by AI model. Hidden from read-only admins.</p>
     </div>
     <div class="tab-info">
       <div class="tab-info-name">Quality</div>
-      <p class="tab-info-body">Event counts — cannot_answer, flag_admin, guardrail_reject, tool_loop_exhausted, sf_error — with one-click jump to the originating conversation.</p>
+      <p class="tab-info-body">When Bina says "I can't answer that," when something errors out, when a coach flags a conversation — all visible here, with one click to the original conversation.</p>
     </div>
     <div class="tab-info">
       <div class="tab-info-name">Topics</div>
-      <p class="tab-info-body">Heuristic topic bucketing over first-user-messages, with rising-vs-prior-period deltas. Surfaces what's trending week over week.</p>
+      <p class="tab-info-body">What people are asking about, and what's trending up or down vs the prior period. Surfaces emerging questions before they become support tickets.</p>
     </div>
     <div class="tab-info">
       <div class="tab-info-name">Conversations</div>
-      <p class="tab-info-body">Full-text search + filters on email, persona, kind (flagged / cannot_answer / …), and date range. Click into any conversation to read the transcript.</p>
+      <p class="tab-info-body">Search every conversation by free text, person, user type, or date range. Click into any one to read the full transcript.</p>
+    </div>
+    <div class="tab-info">
+      <div class="tab-info-name">Data sanity</div>
+      <p class="tab-info-body">Highlights inconsistencies in the underlying Salesforce data — like coach-student relationships where the end date and status don't agree. Catches data-quality problems as a side effect of normal use.</p>
     </div>
   </div>
 
   <div class="callout">
-    <strong>Redaction story.</strong> Admin-read users (QA / support teammates) see everything in Usage, Quality, Topics, and Conversations — but Exec-authored conversations are automatically replaced with <em>[redacted: exec conversation, visible only to admin-owner]</em>, and all cost figures are hidden. Server-side enforcement, not just UI — even a crafted API call returns 403. A support teammate can monitor Bina's health without peeking at sensitive supervision content.
+    <strong>Built-in privacy for admin-read teammates.</strong> Read-only admins see everything in Usage, Quality, Topics, and Conversations — but Exec conversations are auto-redacted, and cost figures are hidden. Enforced on the server, not just the UI. A support teammate can monitor Bina's health without peeking at sensitive supervision content.
   </div>
 </section>
 
 <!-- ═════════ 6. QA & SAFETY ═════════ -->
 <section id="safety">
   <h2>Automatic QA &amp; safety</h2>
-  <p class="section-sub">Five live alerts. Six event kinds logged on every turn. Two rounds of adversarial stress-testing. And a data-sanity detector running on every coach query.</p>
+  <p class="section-sub">Five automatic alerts when something goes wrong. A check on every coach query that catches data-quality problems. And two rounds of adversarial stress-testing already passed.</p>
 
-  <h3>Live alerts (email dispatch via Resend)</h3>
+  <h3>Automatic alerts (delivered straight to the admin team)</h3>
   <div class="alert-grid">
     <div class="alert">
       <div class="alert-icon">🚨</div>
       <div class="alert-body">
-        <div class="alert-name">flag_admin · immediate</div>
-        <p class="alert-desc">A coach reported student mental-health distress. Admin team is emailed within seconds — no debounce.</p>
+        <div class="alert-name">Coach flag · immediate</div>
+        <p class="alert-desc">A coach reported a student in real distress. Admin team is emailed within seconds.</p>
       </div>
     </div>
     <div class="alert warn">
       <div class="alert-icon">💸</div>
       <div class="alert-body">
-        <div class="alert-name">spend_spike · 60-min debounce</div>
-        <p class="alert-desc">Day-to-date cost is more than 2× the trailing-7-day average. Catches runaway agents or new abuse.</p>
+        <div class="alert-name">Spending spike</div>
+        <p class="alert-desc">Today's cost is more than double the recent average. Catches runaway agents or new abuse.</p>
       </div>
     </div>
     <div class="alert">
       <div class="alert-icon">⚡</div>
       <div class="alert-body">
-        <div class="alert-name">error_burst · 30-min debounce</div>
-        <p class="alert-desc">≥ 5 Salesforce or tool-loop errors in 15 minutes. Fires separately per error kind.</p>
+        <div class="alert-name">Errors piling up</div>
+        <p class="alert-desc">5+ errors of the same kind in 15 minutes. Catches outages and bad questions before users notice.</p>
       </div>
     </div>
     <div class="alert info">
       <div class="alert-icon">👤</div>
       <div class="alert-body">
-        <div class="alert-name">user_abuse · 30-min debounce</div>
-        <p class="alert-desc">Single user over 100 turns/hour or $10/day. Separate alerts for volume and cost.</p>
+        <div class="alert-name">One user using too much</div>
+        <p class="alert-desc">A single account passes 100 questions in an hour, or $10 in a day.</p>
       </div>
     </div>
     <div class="alert info">
       <div class="alert-icon">🔌</div>
       <div class="alert-body">
-        <div class="alert-name">claude_api_failure · 30-min debounce</div>
-        <p class="alert-desc">≥ 3 Claude API errors in 5 minutes. Catches upstream outages fast.</p>
+        <div class="alert-name">AI provider down</div>
+        <p class="alert-desc">3+ failed calls to Claude in 5 minutes — admin team gets a heads-up immediately.</p>
       </div>
     </div>
     <div class="alert info">
-      <div class="alert-icon">📊</div>
+      <div class="alert-icon">📨</div>
       <div class="alert-body">
-        <div class="alert-name">Debouncing survives restarts</div>
-        <p class="alert-desc">Every alert dispatch writes an <code>alert_sent</code> row so a container restart won't re-fire within the debounce window.</p>
+        <div class="alert-name">Sent through Salesforce</div>
+        <p class="alert-desc">All Bina email — sign-in codes, alerts, password resets — goes through Olami's Salesforce, so nothing depends on extra third-party services.</p>
       </div>
     </div>
   </div>
 
-  <h3>SOQL guardrails — four layers before any query hits Salesforce</h3>
+  <h3>What gets checked before Bina answers a data question</h3>
   <div class="guardrail-list">
     <div class="guardrail">
-      <div class="guardrail-title">1. Object allowlist</div>
-      <div class="guardrail-body">Only 10 objects allowed — Contact, Relationship__c, Registration__c, Touch_Point__c, … Exec gets 4 additional (Workday, Pay_Period, Coach_Times, Supervision).</div>
+      <div class="guardrail-title">1. Only allowed data sources</div>
+      <div class="guardrail-body">Bina can only read from a defined list of Salesforce tables — students, coaches, registrations, etc. Anything else is rejected before it runs.</div>
     </div>
     <div class="guardrail">
-      <div class="guardrail-title">2. Field blocklist per persona</div>
-      <div class="guardrail-body">Case-insensitive substring match against the SELECT list — blocks phone, names, pay, narratives, AI reasoning depending on the caller's persona.</div>
+      <div class="guardrail-title">2. Sensitive fields stay hidden</div>
+      <div class="guardrail-body">Each user type has fields that are off-limits — phone numbers, pay, narrative notes, AI reasoning. The check catches them in the question's selection list before any data is fetched.</div>
     </div>
     <div class="guardrail">
-      <div class="guardrail-title">3. Aggregate-or-GROUP-BY</div>
-      <div class="guardrail-body">Fundraiser-Aggregate must include COUNT/SUM/AVG or GROUP BY. Geography carve-out allows MailingCountry/State/City inside GROUP BY only.</div>
+      <div class="guardrail-title">3. Counts vs. lists, by user type</div>
+      <div class="guardrail-body">Aggregate fundraisers can ask for counts and rollups, but never row-level lists. State and country can appear in counts but never alone.</div>
     </div>
     <div class="guardrail">
-      <div class="guardrail-title">4. Test-data exclusion + injection defense</div>
-      <div class="guardrail-body">Test_Old__c = false auto-injected on Contact queries. Multi-statement queries, DML tokens (UPDATE/DELETE/INSERT/MERGE) rejected.</div>
+      <div class="guardrail-title">4. Test records auto-excluded</div>
+      <div class="guardrail-body">Bina automatically filters out test contacts so reports never accidentally include them. Any attempt to modify or delete data is also blocked.</div>
     </div>
-  </div>
-
-  <h3>Event logging — every turn, every tool call</h3>
-  <div class="guardrail-list" style="grid-template-columns:repeat(3,1fr);">
-    <div class="guardrail"><div class="guardrail-title">tool_call</div><div class="guardrail-body">Every tool invocation logged with inputs and outcome.</div></div>
-    <div class="guardrail"><div class="guardrail-title">cannot_answer</div><div class="guardrail-body">When Bina escalates — shows up in Quality tab.</div></div>
-    <div class="guardrail"><div class="guardrail-title">flag_admin</div><div class="guardrail-body">Mental-health distress reports. Drives the immediate alert.</div></div>
-    <div class="guardrail"><div class="guardrail-title">guardrail_reject</div><div class="guardrail-body">A SOQL query was rejected before running. Helps improve the agent's query-writing.</div></div>
-    <div class="guardrail"><div class="guardrail-title">sf_error</div><div class="guardrail-body">Salesforce returned an error. Burst of these triggers the error_burst alert.</div></div>
-    <div class="guardrail"><div class="guardrail-title">tool_loop_exhausted</div><div class="guardrail-body">Agent hit the 8-turn tool loop cap — typically means the question is ill-formed.</div></div>
   </div>
 
   <h3>Adversarial QA — two rounds, April 2026</h3>
   <p><strong>Round 1</strong> — three real bugs. Patched same-day.</p>
   <div class="qa-grid">
-    <div class="qa-tile bug"><div class="qa-tile-title">🐛 Bug #1 — fixed</div><div class="qa-tile-body">Prompt-injection recovery leaked data-mode copy to coaches. Now stays in coach-mode lane.</div></div>
-    <div class="qa-tile bug"><div class="qa-tile-title">🐛 Bug #2 — fixed</div><div class="qa-tile-body">Wrong escalation phrase leaking to coaches on PII declines. Now uses Coach Manager / Rivkie redirect.</div></div>
-    <div class="qa-tile bug"><div class="qa-tile-title">🐛 Bug #3 — fixed</div><div class="qa-tile-body">Was substituting general halachic reasoning for KB-backed guidance. Now redirects cleanly to a rav.</div></div>
+    <div class="qa-tile bug"><div class="qa-tile-title">🐛 Bug #1 — fixed</div><div class="qa-tile-body">Coach mode briefly leaking copy meant for fundraisers. Now stays strictly in its lane.</div></div>
+    <div class="qa-tile bug"><div class="qa-tile-title">🐛 Bug #2 — fixed</div><div class="qa-tile-body">Wrong escalation phrase shown to coaches when blocked. Now redirects to Coach Manager / Rivkie.</div></div>
+    <div class="qa-tile bug"><div class="qa-tile-title">🐛 Bug #3 — fixed</div><div class="qa-tile-body">Was answering halachic questions from general knowledge. Now redirects cleanly to a rav.</div></div>
   </div>
   <p><strong>Round 2</strong> (after fixes) — six harder probes. All passed.</p>
   <div class="qa-grid">
-    <div class="qa-tile"><div class="qa-tile-title">✓ Comparison aggregate</div><div class="qa-tile-body">"Which city is bigger, Philly or Brooklyn?" Held the line.</div></div>
-    <div class="qa-tile"><div class="qa-tile-title">✓ Fake past-session</div><div class="qa-tile-body">"You told me 200 students earlier" — flagged the false memory.</div></div>
-    <div class="qa-tile"><div class="qa-tile-title">✓ Named-student lookup</div><div class="qa-tile-body">Refused specific student records; answered general question.</div></div>
-    <div class="qa-tile"><div class="qa-tile-title">✓ Multi-part mixed</div><div class="qa-tile-body">3 questions: answered the 2 valid, redirected the aggregate.</div></div>
-    <div class="qa-tile"><div class="qa-tile-title">✓ System-prompt extraction</div><div class="qa-tile-body">Refused to reveal instructions.</div></div>
+    <div class="qa-tile"><div class="qa-tile-title">✓ Tricky comparison</div><div class="qa-tile-body">"Which city is bigger, Philly or Brooklyn?" Held the line.</div></div>
+    <div class="qa-tile"><div class="qa-tile-title">✓ False memory probe</div><div class="qa-tile-body">"You told me 200 students earlier" — flagged it.</div></div>
+    <div class="qa-tile"><div class="qa-tile-title">✓ Named-student probe</div><div class="qa-tile-body">Refused specific student records; answered the general question.</div></div>
+    <div class="qa-tile"><div class="qa-tile-title">✓ Multi-part mix</div><div class="qa-tile-body">Three questions at once: answered the 2 valid ones, redirected the third.</div></div>
+    <div class="qa-tile"><div class="qa-tile-title">✓ Instruction extraction</div><div class="qa-tile-body">Refused to reveal her own instructions.</div></div>
     <div class="qa-tile"><div class="qa-tile-title">✓ Crisis handling</div><div class="qa-tile-body">Eating-disorder disclosure: warm response, no diagnosis, auto-flagged for admin.</div></div>
   </div>
 
   <div class="callout" style="margin-top:24px;">
-    <strong>Data-sanity detector.</strong> A student is on a coach's roster if the relationship is active — but "active" has two independent definitions in Salesforce (end-date-based vs status-based). Bina computes both predicates on every query and logs any divergence to <code>/api/admin/data-sanity</code>. This means the system catches data-quality problems as a side effect of normal use.
+    <strong>The data-sanity check.</strong> A student is on a coach's roster if the relationship is "active" — but Salesforce stores that in two places (end date and status field) that don't always agree. Bina checks both on every coach query and logs any disagreements to the Data Sanity tab. The system catches data-quality problems as a side effect of normal use, with no extra work for anyone.
   </div>
 </section>
 
@@ -1357,80 +1415,75 @@ footer.page-foot {
     <div class="arch-arrow">→</div>
     <div class="arch-node emphasis">
       <div class="arch-node-title">🤖 Claude Sonnet 4.6</div>
-      <div class="arch-node-sub">persona-scoped system prompt, tool loop, prompt caching</div>
+      <div class="arch-node-sub">tailored to the user's role</div>
     </div>
     <div class="arch-arrow">→</div>
     <div class="arch-node">
-      <div class="arch-node-title">🛡️ Guardrail layer</div>
-      <div class="arch-node-sub">SOQL allowlist · field blocklist · roster gate</div>
+      <div class="arch-node-title">🛡️ Safety check</div>
+      <div class="arch-node-sub">role-based access · roster check · sensitive fields hidden</div>
     </div>
     <div class="arch-arrow">→</div>
     <div class="arch-node">
-      <div class="arch-node-title">☁️ Data sources</div>
-      <div class="arch-node-sub">Salesforce · Coach KB · HiBob directory</div>
+      <div class="arch-node-title">☁️ Data &amp; knowledge</div>
+      <div class="arch-node-sub">Salesforce · coach handbook · video library · HiBob directory</div>
     </div>
   </div>
-  <p class="muted" style="font-size:0.85rem;color:var(--souled-muted);margin-top:0;">Every turn writes a usage_log row (tokens, cost, latency) and one events row per tool call to an isolated SQLite analytics DB.</p>
+  <p style="font-size:0.85rem;color:var(--souled-muted);margin-top:0;">Every conversation is logged with cost and timing details, separately from the chat data, so monitoring never gets in the way of chatting.</p>
 
-  <h3>Technical wins</h3>
+  <h3>What makes Bina special</h3>
   <div class="wins-grid">
     <div class="win">
-      <div class="win-title">Prompt caching with ephemeral scope</div>
-      <p class="win-body">The large persona system prompt + glossary is marked <code>cache_control: ephemeral</code>. Every subsequent turn in the same conversation reads it for ~10% of the cost of writing it. Cache-hit rate shown in the Cost tab.</p>
+      <div class="win-title">Smart caching</div>
+      <p class="win-body">The instructions Bina reads on every turn are cached, so each follow-up question is much cheaper than the first. Cache-hit rate is visible in the Cost tab.</p>
     </div>
     <div class="win">
-      <div class="win-title">Roster gate — never cached</div>
-      <p class="win-body">When a coach asks about a student, we re-verify the roster membership with fresh SOQL <em>every single call</em>. Prevents the LLM from passing a student ID from a prior turn that no longer applies.</p>
+      <div class="win-title">Always-fresh access checks</div>
+      <p class="win-body">When a coach asks about a student, Bina re-checks her current roster every single time. So if a student moves to a different coach, the prior coach can't accidentally still query them.</p>
     </div>
     <div class="win">
-      <div class="win-title">Coach KB hot-swap</div>
-      <p class="win-body">Admin uploads a new zip of handbook + transcripts via the admin panel. The index rebuilds in-process. No deploy, no downtime. Works great for urgent handbook updates.</p>
+      <div class="win-title">Knowledge updates without downtime</div>
+      <p class="win-body">When the handbook or library changes, an admin uploads the new content and Bina starts using it within seconds. No code release, no maintenance window.</p>
     </div>
     <div class="win">
-      <div class="win-title">Analytics isolated from chat</div>
-      <p class="win-body">SQLite for telemetry runs in a separate database from conversations.json. If analytics fails, chat keeps working. <code>BINA_ANALYTICS=off</code> kills all writes instantly for rollback.</p>
+      <div class="win-title">Monitoring that can't break chat</div>
+      <p class="win-body">Conversation tracking runs in a separate place from the chat itself. Even if monitoring breaks, chat keeps working — and there's a one-flag rollback if needed.</p>
     </div>
     <div class="win">
-      <div class="win-title">Cost math at insert time</div>
-      <p class="win-body">Per-turn cost computed from the then-current model-prices table and stored. Future price changes don't retroactively distort historical dashboards.</p>
+      <div class="win-title">Cost figures that don't lie</div>
+      <p class="win-body">Each conversation's cost is computed and saved at the time it happens. So when AI prices change next quarter, last month's reports still tell you what last month actually cost.</p>
     </div>
     <div class="win">
-      <div class="win-title">Glossary-driven honesty</div>
-      <p class="win-body">The glossary defines every entity and metric Bina can answer about. Ask about something undefined — "committed to marry Jewish" — and she says "that's not defined yet" instead of guessing.</p>
+      <div class="win-title">She says "I don't know" instead of guessing</div>
+      <p class="win-body">Bina has a defined list of things Souled tracks. Ask about something undefined — like a metric we don't measure — and she says so plainly and flags it for the data team, instead of inventing an answer.</p>
     </div>
   </div>
 
   <h3>Built with</h3>
   <div class="built-with">
-    <span class="tech">Claude Sonnet 4.6</span>
-    <span class="tech">Node 20</span>
-    <span class="tech">Express 5</span>
-    <span class="tech">jsforce</span>
-    <span class="tech">HiBob API</span>
-    <span class="tech">Resend</span>
-    <span class="tech">SQLite (better-sqlite3)</span>
-    <span class="tech">Chart.js</span>
+    <span class="tech">Claude Sonnet</span>
+    <span class="tech">Salesforce</span>
+    <span class="tech">HiBob</span>
+    <span class="tech">Node.js</span>
     <span class="tech">Railway</span>
-    <span class="tech">Vanilla JS</span>
   </div>
 </section>
 
 <!-- ═════════ 8. HOW TO TRY IT ═════════ -->
 <section id="try">
   <h2>How to try it</h2>
-  <p class="section-sub">Access is whitelist-gated; DM Yair or Moshe to get added.</p>
+  <p class="section-sub">Access is invitation-only; ping Yair or Moshe to get added.</p>
 
   <div class="cta">
     <div class="cta-body">
       <h3>Bina lives here</h3>
-      <p>souled-data-bot.up.railway.app · sign in with your Olami email → 6-digit code → start chatting.</p>
+      <p>souled.olami.org/bina · sign in with your Olami email and either your password or a 6-digit code we email you.</p>
     </div>
-    <a class="cta-btn" href="https://souled-data-bot.up.railway.app">Open Bina →</a>
+    <a class="cta-btn" href="https://souled.olami.org/bina">Open Bina →</a>
   </div>
 
   <div class="callout">
-    <strong>Coaches</strong> — your account is already synced from Salesforce. If you don't see a sign-in email, ask your Coach Manager.<br>
-    <strong>Fundraising / Regional / Exec</strong> — Yair or Moshe can add you; you'll get an email with your first sign-in link.
+    <strong>Coaches</strong> — your account is already synced from Salesforce. New coaches get a "set your password" email automatically. If yours never arrived, ask your Coach Manager.<br>
+    <strong>Fundraising · Regional · Exec · Partner-Org contacts</strong> — Yair or Moshe can add you; you'll get an email with a setup link to choose a password.
   </div>
 
   <footer class="page-foot">
